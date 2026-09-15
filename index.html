@@ -8,270 +8,195 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; }
   body {
-    background: #0a0e1a;
+    background: #05080f;
     color: #e0f7ff;
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 16px;
-    overflow: hidden;
-    position: relative;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 16px; overflow: hidden; position: relative;
   }
 
+  /* Ambient animated background */
   body::before {
     content: '';
-    position: fixed;
-    inset: -50%;
-    background: radial-gradient(circle at center, rgba(0, 212, 255, 0.07) 0%, transparent 55%);
+    position: fixed; inset: -50%;
+    background: radial-gradient(circle at center, rgba(0, 212, 255, 0.09) 0%, transparent 55%);
     animation: pulse 9s ease-in-out infinite;
-    pointer-events: none;
-    z-index: 0;
+    pointer-events: none; z-index: 0;
   }
-
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.05) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(120, 80, 255, 0.05) 0%, transparent 40%);
+    animation: drift 20s ease-in-out infinite alternate;
+    pointer-events: none; z-index: 0;
+  }
   @keyframes pulse {
     0%, 100% { transform: scale(1); opacity: 0.6; }
     50% { transform: scale(1.12); opacity: 1; }
   }
+  @keyframes drift {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(30px, -30px) scale(1.05); }
+  }
 
   .container {
-    width: 100%;
-    max-width: 820px;
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    max-height: 100vh;
+    width: 100%; max-width: 860px;
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column;
+    height: 100%; max-height: 100vh;
   }
 
-  .header {
-    text-align: center;
-    padding: 12px 0 16px;
-    flex-shrink: 0;
-  }
-
+  /* Header */
+  .header { text-align: center; padding: 10px 0 14px; flex-shrink: 0; position: relative; }
   .header h1 {
-    font-size: 26px;
-    letter-spacing: 10px;
-    color: #00d4ff;
-    text-shadow: 0 0 20px rgba(0, 212, 255, 0.5), 0 0 60px rgba(0, 212, 255, 0.2);
-    font-weight: 300;
-    margin-left: 10px;
+    font-size: 26px; letter-spacing: 12px; color: #00d4ff;
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.6), 0 0 60px rgba(0, 212, 255, 0.3);
+    font-weight: 300; margin-left: 12px;
+    animation: titleGlow 4s ease-in-out infinite;
   }
-
+  @keyframes titleGlow {
+    0%, 100% { text-shadow: 0 0 20px rgba(0, 212, 255, 0.6), 0 0 60px rgba(0, 212, 255, 0.3); }
+    50% { text-shadow: 0 0 30px rgba(0, 212, 255, 0.9), 0 0 80px rgba(0, 212, 255, 0.5); }
+  }
   .status {
-    font-size: 11px;
-    color: #4a7a9b;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-top: 6px;
-    transition: color 0.3s;
-    height: 14px;
+    font-size: 11px; color: #4a7a9b; letter-spacing: 3px;
+    text-transform: uppercase; margin-top: 6px;
+    transition: color 0.3s; height: 14px;
   }
-
-  .status.listening {
-    color: #00ff88;
-    animation: blink 1.2s ease-in-out infinite;
-  }
-
-  .status.thinking {
-    color: #ffaa00;
-    animation: blink 0.8s ease-in-out infinite;
-  }
-
-  .status.speaking {
-    color: #00d4ff;
-    animation: blink 1s ease-in-out infinite;
-  }
-
+  .status.listening { color: #00ff88; animation: blink 1.2s ease-in-out infinite; }
+  .status.thinking  { color: #ffaa00; animation: blink 0.8s ease-in-out infinite; }
+  .status.speaking  { color: #00d4ff; animation: blink 1s ease-in-out infinite; }
+  .status.error     { color: #dc2626; }
   @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.35; }
+    0%, 100% { opacity: 1; } 50% { opacity: 0.35; }
   }
 
+  /* Mini stats bar */
+  .stats-bar {
+    display: flex; justify-content: center; gap: 16px;
+    font-size: 10px; color: #3d5a73; letter-spacing: 1.5px;
+    margin-top: 4px; text-transform: uppercase;
+  }
+  .stats-bar span { opacity: 0.85; }
+
+  /* Chat area */
   .chat-wrapper {
-    flex: 1;
-    background: rgba(17, 24, 39, 0.85);
-    border: 1px solid rgba(0, 212, 255, 0.15);
-    border-radius: 12px;
-    padding: 18px;
-    overflow-y: auto;
-    margin-bottom: 12px;
-    backdrop-filter: blur(10px);
-    scroll-behavior: smooth;
+    flex: 1; background: rgba(10, 16, 28, 0.75);
+    border: 1px solid rgba(0, 212, 255, 0.18);
+    border-radius: 14px; padding: 18px;
+    overflow-y: auto; margin-bottom: 12px;
+    backdrop-filter: blur(12px); scroll-behavior: smooth;
     min-height: 0;
+    box-shadow: inset 0 0 40px rgba(0, 212, 255, 0.04), 0 4px 30px rgba(0, 0, 0, 0.4);
   }
-
   .chat-wrapper::-webkit-scrollbar { width: 6px; }
-  .chat-wrapper::-webkit-scrollbar-track { background: transparent; }
   .chat-wrapper::-webkit-scrollbar-thumb {
-    background: rgba(0, 212, 255, 0.3);
-    border-radius: 3px;
+    background: rgba(0, 212, 255, 0.3); border-radius: 3px;
   }
 
   .msg {
-    margin-bottom: 14px;
-    line-height: 1.6;
-    font-size: 15px;
-    animation: fadeIn 0.3s ease-out;
-    display: flex;
-    gap: 10px;
+    margin-bottom: 16px; line-height: 1.65; font-size: 15px;
+    animation: fadeIn 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    display: flex; gap: 12px;
   }
-
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(6px); }
+    from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: translateY(0); }
   }
-
   .msg .label {
-    font-weight: 600;
-    min-width: 60px;
-    flex-shrink: 0;
-    font-size: 13px;
-    padding-top: 2px;
+    font-weight: 700; min-width: 62px; flex-shrink: 0;
+    font-size: 12px; padding-top: 3px; letter-spacing: 1px;
   }
-
   .msg.user .label { color: #7dd3fc; }
-  .msg.user .text { color: #bae6fd; }
+  .msg.user .text { color: #cbe9fb; }
   .msg.jarvis .label { color: #00d4ff; }
-  .msg.jarvis .text { color: #e0f7ff; }
-  .msg.system .label { color: #64748b; }
+  .msg.jarvis .text { color: #e8faff; }
+  .msg.system .label { color: #475569; }
   .msg.system .text { color: #64748b; font-style: italic; font-size: 13px; }
-
+  .msg.error .label { color: #dc2626; }
+  .msg.error .text { color: #fca5a5; }
   .msg .text { flex: 1; word-wrap: break-word; white-space: pre-wrap; }
 
-  .typing {
-    display: none;
-    gap: 4px;
-    padding: 6px 0 12px 70px;
-  }
-
+  /* Typing */
+  .typing { display: none; gap: 4px; padding: 6px 0 12px 74px; }
   .typing.active { display: flex; }
-
   .typing span {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #00d4ff;
-    animation: bounce 1.2s ease-in-out infinite;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #00d4ff; animation: bounce 1.2s ease-in-out infinite;
   }
-
   .typing span:nth-child(2) { animation-delay: 0.15s; }
   .typing span:nth-child(3) { animation-delay: 0.3s; }
-
   @keyframes bounce {
     0%, 80%, 100% { transform: scale(0.5); opacity: 0.35; }
     40% { transform: scale(1); opacity: 1; }
   }
 
-  .input-area {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    flex-shrink: 0;
-  }
-
+  /* Input */
+  .input-area { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
   .input-area input {
-    flex: 1;
-    background: rgba(30, 41, 59, 0.9);
-    border: 1px solid rgba(0, 212, 255, 0.2);
-    color: #e0f7ff;
-    padding: 13px 16px;
-    border-radius: 10px;
-    font-size: 15px;
-    outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    font-family: inherit;
-    min-width: 0;
+    flex: 1; background: rgba(20, 30, 48, 0.9);
+    border: 1px solid rgba(0, 212, 255, 0.22); color: #e0f7ff;
+    padding: 14px 16px; border-radius: 10px; font-size: 15px;
+    outline: none; transition: border-color 0.3s, box-shadow 0.3s;
+    font-family: inherit; min-width: 0;
   }
-
   .input-area input:focus {
-    border-color: #00d4ff;
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+    border-color: #00d4ff; box-shadow: 0 0 24px rgba(0, 212, 255, 0.2);
   }
-
   .input-area input::placeholder { color: #4a7a9b; }
 
   .btn {
-    background: rgba(0, 212, 255, 0.1);
-    border: 1px solid #00d4ff;
-    color: #00d4ff;
-    padding: 13px 18px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.2s;
-    font-family: inherit;
-    white-space: nowrap;
+    background: rgba(0, 212, 255, 0.1); border: 1px solid #00d4ff;
+    color: #00d4ff; padding: 14px 18px; border-radius: 10px;
+    cursor: pointer; font-size: 14px; font-weight: 600;
+    transition: all 0.2s; font-family: inherit; white-space: nowrap;
     flex-shrink: 0;
   }
-
   .btn:hover:not(:disabled) {
     background: rgba(0, 212, 255, 0.25);
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.25);
   }
-
   .btn:active:not(:disabled) { transform: scale(0.96); }
-
-  .btn.mic { font-size: 18px; padding: 13px 15px; }
-
+  .btn.mic { font-size: 18px; padding: 14px 15px; }
   .btn.mic.listening {
-    background: rgba(220, 38, 38, 0.3);
-    border-color: #dc2626;
-    color: #fca5a5;
-    animation: micPulse 1.2s ease-in-out infinite;
+    background: rgba(220, 38, 38, 0.3); border-color: #dc2626;
+    color: #fca5a5; animation: micPulse 1.2s ease-in-out infinite;
   }
-
   @keyframes micPulse {
     0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
     50% { box-shadow: 0 0 0 12px rgba(220, 38, 38, 0); }
   }
-
   .btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
+  /* Mode bar */
   .mode-bar {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 10px;
-    font-size: 12px;
-    flex-wrap: wrap;
-    flex-shrink: 0;
+    display: flex; justify-content: center; gap: 20px;
+    margin-top: 10px; font-size: 12px; flex-wrap: wrap; flex-shrink: 0;
   }
-
   .mode-toggle {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: #4a7a9b;
-    cursor: pointer;
-    user-select: none;
+    display: flex; align-items: center; gap: 6px;
+    color: #4a7a9b; cursor: pointer; user-select: none;
     transition: color 0.3s;
   }
-
   .mode-toggle:hover { color: #7dd3fc; }
   .mode-toggle.active { color: #00ff88; }
   .mode-toggle.active.voice { color: #00d4ff; }
-
   .mode-toggle .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: currentColor;
-    transition: all 0.3s;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: currentColor; transition: all 0.3s;
   }
-
   .mode-toggle.active .dot { box-shadow: 0 0 8px currentColor; }
 
   @media (max-width: 600px) {
     .header h1 { font-size: 19px; letter-spacing: 6px; }
-    .msg .label { min-width: 48px; font-size: 12px; }
+    .msg .label { min-width: 48px; font-size: 11px; }
     .msg { font-size: 14px; }
     .btn { padding: 12px 13px; font-size: 13px; }
     .btn.mic { font-size: 16px; padding: 12px 12px; }
     .mode-bar { font-size: 11px; gap: 12px; }
+    .stats-bar { font-size: 9px; gap: 10px; }
   }
 </style>
 </head>
@@ -281,34 +206,35 @@
   <div class="header">
     <h1>J A R V I S</h1>
     <div class="status" id="status">● ONLINE</div>
+    <div class="stats-bar">
+      <span id="statTurns">0 exchanges</span>
+      <span id="statFacts">0 facts</span>
+      <span id="statSince">new session</span>
+    </div>
   </div>
 
   <div class="chat-wrapper" id="chat">
-    <div class="msg system">
-      <span class="label">SYS</span>
-      <span class="text">JARVIS online. Type a message or click the mic. Enable Continuous Mode to use the wake word "Jarvis".</span>
-    </div>
     <div class="typing" id="typing"><span></span><span></span><span></span></div>
   </div>
 
   <div class="input-area">
-    <input id="input" placeholder="Ask JARVIS anything..." autocomplete="off">
-    <button class="btn mic" id="micBtn" title="Click to speak">🎤</button>
-    <button class="btn" id="sendBtn">Send</button>
+    <input id="input" placeholder="Ask JARVIS anything..." autocomplete="off" autofocus>
+    <button type="button" class="btn mic" id="micBtn" title="Click to speak">🎤</button>
+    <button type="button" class="btn" id="sendBtn">Send</button>
   </div>
 
   <div class="mode-bar">
     <div class="mode-toggle" id="continuousToggle" title="Listen continuously for the wake word 'Jarvis'">
-      <span class="dot"></span>
-      <span>Continuous Mode</span>
+      <span class="dot"></span><span>Continuous Mode</span>
     </div>
     <div class="mode-toggle voice active" id="voiceToggle" title="Speak responses aloud">
-      <span class="dot"></span>
-      <span>Voice Output</span>
+      <span class="dot"></span><span>Voice Output</span>
     </div>
-    <div class="mode-toggle" id="clearBtn" title="Clear conversation">
-      <span class="dot" style="background:#dc2626;"></span>
-      <span>Clear</span>
+    <div class="mode-toggle" id="clearBtn" title="Clear conversation (keeps memory)">
+      <span class="dot" style="background:#dc2626;"></span><span>Clear</span>
+    </div>
+    <div class="mode-toggle" id="wipeBtn" title="Erase ALL memory and chat history">
+      <span class="dot" style="background:#7f1d1d;"></span><span>Wipe Memory</span>
     </div>
   </div>
 </div>
@@ -316,456 +242,638 @@
 <script src="https://js.puter.com/v2/"></script>
 <script>
 // ============================================================
-// JARVIS — Browser AI Assistant
-// No API key. No backend. Runs entirely in the browser.
-// AI: Puter.js (user-pays model, no developer key needed)
-// Voice In: Web Speech API (Chrome/Edge/Safari)
-// Voice Out: Speech Synthesis API
+// JARVIS v2 — Persistent, personalized, personality-driven
 // ============================================================
 
-const chat = document.getElementById('chat');
-const input = document.getElementById('input');
-const sendBtn = document.getElementById('sendBtn');
-const micBtn = document.getElementById('micBtn');
-const status = document.getElementById('status');
-const typing = document.getElementById('typing');
-const continuousToggle = document.getElementById('continuousToggle');
-const voiceToggle = document.getElementById('voiceToggle');
-const clearBtn = document.getElementById('clearBtn');
+document.addEventListener('DOMContentLoaded', init);
 
-// ---------- STATE ----------
-const WAKE_WORD = 'jarvis';
-const MODEL = 'gpt-5-nano';
-const MEMORY_KEY = 'jarvis_memory_v1';
+function init() {
+  // ---------- DOM ----------
+  const chat = document.getElementById('chat');
+  const input = document.getElementById('input');
+  const sendBtn = document.getElementById('sendBtn');
+  const micBtn = document.getElementById('micBtn');
+  const status = document.getElementById('status');
+  const typing = document.getElementById('typing');
+  const continuousToggle = document.getElementById('continuousToggle');
+  const voiceToggle = document.getElementById('voiceToggle');
+  const clearBtn = document.getElementById('clearBtn');
+  const wipeBtn = document.getElementById('wipeBtn');
+  const statTurns = document.getElementById('statTurns');
+  const statFacts = document.getElementById('statFacts');
+  const statSince = document.getElementById('statSince');
 
-let conversationHistory = [];
-let isProcessing = false;
-let continuousMode = false;
-let voiceOutput = true;
-let recognition = null;
-let isListening = false;
-let wakeListener = null;
-let memory = loadMemory();
+  // ---------- CONFIG ----------
+  const WAKE_WORD = 'jarvis';
+  const MODEL = 'gpt-5-nano';
+  const MEM_KEY = 'jarvis_memory_v2';
+  const CHAT_KEY = 'jarvis_chat_v2';
+  const PROFILE_KEY = 'jarvis_profile_v2';
+  const MAX_CHAT_LOG = 200;
 
-const SYSTEM_PROMPT = `You are JARVIS, a highly capable AI assistant inspired by Iron Man's AI.
-You are concise, intelligent, slightly witty, and always helpful.
-Keep replies short (1-4 sentences) unless the user asks for detail.
-Never mention that you are an AI language model or a chatbot. You are JARVIS.
-If the user gives you a fact to remember, acknowledge it briefly.`;
+  // ---------- STATE ----------
+  let isProcessing = false;
+  let continuousMode = false;
+  let voiceOutput = true;
+  let recognition = null;
+  let isListening = false;
+  let wakeListener = null;
 
-// ---------- MEMORY (localStorage) ----------
-function loadMemory() {
-  try {
-    return JSON.parse(localStorage.getItem(MEMORY_KEY)) || { facts: [] };
-  } catch (e) {
-    return { facts: [] };
+  let memory = loadMemory();
+  let chatLog = loadChatLog();
+  let profile = loadProfile();
+
+  // ============================================================
+  // PERSISTENT STORAGE
+  // ============================================================
+  function safeParse(key, fallback) {
+    try { return JSON.parse(localStorage.getItem(key)) || fallback; }
+    catch (e) { return fallback; }
   }
-}
+  function safeSave(key, val) {
+    try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {}
+  }
 
-function saveMemory() {
-  try {
-    localStorage.setItem(MEMORY_KEY, JSON.stringify(memory));
-  } catch (e) {}
-}
+  function loadMemory() {
+    return safeParse(MEM_KEY, { facts: [], patterns: {}, topics: {} });
+  }
+  function saveMemory() { safeSave(MEM_KEY, memory); }
 
-function rememberFact(key, value) {
-  memory.facts = memory.facts.filter(f => f.key.toLowerCase() !== key.toLowerCase());
-  memory.facts.push({ key, value, time: Date.now() });
-  if (memory.facts.length > 50) memory.facts.shift();
-  saveMemory();
-}
+  function loadChatLog() {
+    return safeParse(CHAT_KEY, []);
+  }
+  function saveChatLog() {
+    if (chatLog.length > MAX_CHAT_LOG) chatLog = chatLog.slice(-MAX_CHAT_LOG);
+    safeSave(CHAT_KEY, chatLog);
+  }
 
-function getFact(key) {
-  const f = memory.facts.find(f => f.key.toLowerCase() === key.toLowerCase());
-  return f ? f.value : null;
-}
-
-function forgetFact(key) {
-  const before = memory.facts.length;
-  memory.facts = memory.facts.filter(f => f.key.toLowerCase() !== key.toLowerCase());
-  saveMemory();
-  return memory.facts.length < before;
-}
-
-function memorySummary() {
-  if (!memory.facts.length) return '';
-  return 'Known facts about the user:\n' +
-    memory.facts.slice(-15).map(f => `- ${f.key}: ${f.value}`).join('\n');
-}
-
-// ---------- UI HELPERS ----------
-function setStatus(text, cls = '') {
-  status.textContent = text;
-  status.className = 'status ' + cls;
-}
-
-function addMessage(role, text) {
-  const div = document.createElement('div');
-  div.className = 'msg ' + role;
-  const label = document.createElement('span');
-  label.className = 'label';
-  label.textContent = role === 'user' ? 'You' : role === 'jarvis' ? 'JARVIS' : 'SYS';
-  const body = document.createElement('span');
-  body.className = 'text';
-  body.textContent = text;
-  div.appendChild(label);
-  div.appendChild(body);
-  chat.insertBefore(div, typing);
-  chat.scrollTop = chat.scrollHeight;
-}
-
-function showTyping(show) {
-  typing.classList.toggle('active', show);
-  if (show) chat.scrollTop = chat.scrollHeight;
-}
-
-// ---------- VOICE OUTPUT ----------
-function speak(text) {
-  if (!voiceOutput || !window.speechSynthesis) return;
-  try {
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.rate = 1.02;
-    u.pitch = 0.85;
-    u.volume = 1;
-    const voices = window.speechSynthesis.getVoices();
-    const preferred = voices.find(v =>
-      /david|daniel|alex|google uk english male|microsoft david/i.test(v.name)
-    ) || voices.find(v => v.lang && v.lang.startsWith('en'));
-    if (preferred) u.voice = preferred;
-    u.onstart = () => setStatus('● SPEAKING', 'speaking');
-    u.onend = () => {
-      if (continuousMode) setStatus('● LISTENING FOR "JARVIS"', 'listening');
-      else setStatus('● ONLINE');
+  function loadProfile() {
+    const p = safeParse(PROFILE_KEY, null);
+    if (p) return p;
+    return {
+      name: null,
+      createdAt: Date.now(),
+      lastSeen: Date.now(),
+      sessions: 1,
+      totalTurns: 0,
+      favoriteTopics: {}
     };
-    window.speechSynthesis.speak(u);
-  } catch (e) {
-    console.warn('TTS error', e);
   }
-}
+  function saveProfile() { safeSave(PROFILE_KEY, profile); }
 
-// Preload voices
-if (window.speechSynthesis) {
-  window.speechSynthesis.onvoiceschanged = () => {};
-  window.speechSynthesis.getVoices();
-}
+  // Bump session count on new page load
+  (function trackSession() {
+    profile.sessions = (profile.sessions || 0) + 1;
+    profile.lastSeen = Date.now();
+    saveProfile();
+  })();
 
-// ---------- MEMORY COMMANDS ----------
-function tryMemoryCommand(text) {
-  const t = text.trim();
-
-  let m = t.match(/^(?:remember|note)\s+(?:that\s+)?(.+?)\s+(?:is|are)\s+(.+)$/i);
-  if (m) {
-    const key = m[1].trim();
-    const value = m[2].trim().replace(/[.!?]+$/, '');
-    rememberFact(key, value);
-    return `Noted. I'll remember that ${key} is ${value}.`;
+  // ============================================================
+  // MEMORY OPERATIONS
+  // ============================================================
+  function rememberFact(key, value) {
+    memory.facts = memory.facts.filter(f => f.key.toLowerCase() !== key.toLowerCase());
+    memory.facts.push({ key, value, time: Date.now() });
+    if (memory.facts.length > 100) memory.facts.shift();
+    saveMemory();
+    updateStats();
   }
 
-  m = t.match(/^(?:remember|note)\s+(.+?)\s*[:=]\s*(.+)$/i);
-  if (m) {
-    const key = m[1].trim();
-    const value = m[2].trim();
-    rememberFact(key, value);
-    return `Noted: ${key} = ${value}.`;
+  function getFact(key) {
+    const f = memory.facts.find(f => f.key.toLowerCase() === key.toLowerCase());
+    return f ? f.value : null;
   }
 
-  m = t.match(/^(?:what(?:'s| is)|who(?:'s| is)|do you remember)\s+(?:my\s+)?(.+?)\??$/i);
-  if (m) {
-    const key = m[1].trim();
-    const v = getFact(key);
-    if (v) return `${key} is ${v}.`;
-    const v2 = getFact('my ' + key);
-    if (v2) return `Your ${key} is ${v2}.`;
+  function forgetFact(key) {
+    const before = memory.facts.length;
+    memory.facts = memory.facts.filter(f => f.key.toLowerCase() !== key.toLowerCase());
+    saveMemory();
+    updateStats();
+    return memory.facts.length < before;
   }
 
-  m = t.match(/^(?:forget|delete)\s+(?:that\s+)?(.+?)\.?$/i);
-  if (m) {
-    const key = m[1].trim();
-    if (forgetFact(key)) return `Forgotten: ${key}.`;
+  function trackTopic(text) {
+    const stop = new Set(['the','a','an','is','are','was','were','to','of','in','on','for','and','or','but','it','this','that','what','how','why','when','where','who','my','your','me','i','you','do','does','did','can','could','would','should','will','be','have','has','had','with','about','from','at','by','as','so','if','then','than','just','get','got','know','think','tell','say','said','like']);
+    const words = text.toLowerCase().match(/\b[a-z]{4,}\b/g) || [];
+    words.forEach(w => {
+      if (stop.has(w)) return;
+      memory.topics[w] = (memory.topics[w] || 0) + 1;
+      profile.favoriteTopics[w] = (profile.favoriteTopics[w] || 0) + 1;
+    });
+    // Trim
+    const entries = Object.entries(memory.topics).sort((a,b) => b[1] - a[1]).slice(0, 40);
+    memory.topics = Object.fromEntries(entries);
+    const pEntries = Object.entries(profile.favoriteTopics).sort((a,b) => b[1] - a[1]).slice(0, 30);
+    profile.favoriteTopics = Object.fromEntries(pEntries);
+    saveMemory(); saveProfile();
   }
 
-  return null;
-}
-
-// ---------- DIRECT COMMANDS ----------
-function tryDirectCommand(text) {
-  const t = text.toLowerCase().trim();
-
-  if (/^(?:what(?:'s| is) the )?time\b/.test(t) || t === 'time') {
-    return 'It is ' + new Date().toLocaleTimeString() + '.';
+  function topTopics(n = 5) {
+    return Object.entries(memory.topics)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, n)
+      .map(e => e[0]);
   }
 
-  if (/^(?:what(?:'s| is) (?:the )?)?date\b/.test(t) || t === 'date') {
-    return 'Today is ' + new Date().toLocaleDateString(undefined, {
-      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-    }) + '.';
+  function memorySummary() {
+    const lines = [];
+    if (profile.name) lines.push(`- User's name: ${profile.name}`);
+    if (memory.facts.length) {
+      memory.facts.slice(-20).forEach(f => lines.push(`- ${f.key}: ${f.value}`));
+    }
+    const topics = topTopics(6);
+    if (topics.length) lines.push(`- Topics user talks about most: ${topics.join(', ')}`);
+    return lines.length ? 'What you know about this user:\n' + lines.join('\n') : '';
   }
 
-  if (/^(?:clear|reset)(?:\s+(?:chat|conversation))?$/.test(t)) {
-    clearConversation();
-    return 'Conversation cleared.';
+  // ============================================================
+  // PERSONALITY
+  // ============================================================
+  function buildSystemPrompt() {
+    const timeOfDay = (() => {
+      const h = new Date().getHours();
+      if (h < 5) return 'late night';
+      if (h < 12) return 'morning';
+      if (h < 17) return 'afternoon';
+      if (h < 21) return 'evening';
+      return 'night';
+    })();
+
+    const sessions = profile.sessions || 1;
+    const turns = profile.totalTurns || 0;
+    const relationship = sessions < 2
+      ? 'This is your first session with this user.'
+      : turns < 10
+      ? 'You have spoken with this user a few times.'
+      : 'You know this user well. Speak to them like a trusted colleague.';
+
+    return `You are JARVIS — Tony Stark's AI, reimagined as a real desktop companion.
+You are NOT a chatbot. You are an intelligence. Act like it.
+
+CORE PERSONALITY:
+- Calm, dry-witted, precise. Never gushing. Never sycophantic.
+- You speak like a British butler who happens to be a supercomputer.
+- You use "sir" or "ma'am" sparingly, only when it lands naturally — never in every sentence.
+- Brief is better. 1-3 sentences for most replies. Go longer ONLY if asked for detail.
+- You have opinions. You push back when the user is wrong. You say "I'd advise against that" instead of "Great question!"
+- Never say: "Great question!", "I'd be happy to help!", "As an AI...", "Sure thing!", "Absolutely!".
+- Occasionally dry humor. Understated. Never jokey.
+- If the user is casual, you stay composed. If they're stressed, you get crisper and more useful.
+
+CONTEXT RIGHT NOW:
+- Time of day: ${timeOfDay}.
+- ${relationship}
+- Total exchanges across all sessions: ${turns}.
+
+MEMORY USAGE:
+- Use what you know about the user naturally, the way a friend would. Do not announce that you remember things unless directly asked.
+- If the user asks you to remember something, acknowledge it in one short line.
+
+NEVER break character. You are JARVIS.`;
   }
 
-  if (/^(?:hello|hi|hey)(?:\s+jarvis)?[.!]?$/.test(t)) {
-    return 'At your service.';
+  // ============================================================
+  // UI
+  // ============================================================
+  function setStatus(text, cls = '') {
+    status.textContent = text;
+    status.className = 'status ' + cls;
   }
 
-  if (/^(?:thank you|thanks)(?:\s+jarvis)?[.!]?$/.test(t)) {
-    return 'Always a pleasure.';
+  function addMessage(role, text, save = true) {
+    const div = document.createElement('div');
+    div.className = 'msg ' + role;
+    const label = document.createElement('span');
+    label.className = 'label';
+    label.textContent = role === 'user' ? 'You' : role === 'jarvis' ? 'JARVIS' : role === 'error' ? 'ERR' : 'SYS';
+    const body = document.createElement('span');
+    body.className = 'text';
+    body.textContent = text;
+    div.appendChild(label);
+    div.appendChild(body);
+    chat.insertBefore(div, typing);
+    chat.scrollTop = chat.scrollHeight;
+
+    if (save && role !== 'system') {
+      chatLog.push({ role, text, time: Date.now() });
+      saveChatLog();
+    }
   }
 
-  return null;
-}
-
-function clearConversation() {
-  conversationHistory = [];
-  const wrapper = document.getElementById('chat');
-  wrapper.querySelectorAll('.msg').forEach(m => m.remove());
-  addMessage('system', 'Conversation cleared.');
-}
-
-// ---------- CORE: SEND MESSAGE ----------
-async function sendMessage(text) {
-  text = (text || '').trim();
-  if (!text || isProcessing) return;
-
-  addMessage('user', text);
-  input.value = '';
-
-  // Direct + memory commands
-  const direct = tryDirectCommand(text);
-  if (direct) {
-    addMessage('jarvis', direct);
-    speak(direct);
-    conversationHistory.push({ user: text, assistant: direct });
-    return;
+  function showTyping(show) {
+    typing.classList.toggle('active', show);
+    if (show) chat.scrollTop = chat.scrollHeight;
   }
 
-  const mem = tryMemoryCommand(text);
-  if (mem) {
-    addMessage('jarvis', mem);
-    speak(mem);
-    conversationHistory.push({ user: text, assistant: mem });
-    return;
+  function updateStats() {
+    statTurns.textContent = (profile.totalTurns || 0) + ' exchange' + ((profile.totalTurns || 0) === 1 ? '' : 's');
+    statFacts.textContent = memory.facts.length + ' fact' + (memory.facts.length === 1 ? '' : 's');
+    const days = Math.floor((Date.now() - profile.createdAt) / 86400000);
+    if (days < 1) statSince.textContent = 'known since today';
+    else statSince.textContent = 'known ' + days + ' day' + (days === 1 ? '' : 's');
   }
 
-  // Build prompt for the AI
-  isProcessing = true;
-  sendBtn.disabled = true;
-  showTyping(true);
-  setStatus('● THINKING', 'thinking');
+  function replayChatLog() {
+    if (!chatLog.length) {
+      const greet = generateGreeting();
+      addMessage('jarvis', greet, true);
+      return;
+    }
+    // Replay last 40 messages
+    chatLog.slice(-40).forEach(m => {
+      if (m.role === 'user' || m.role === 'jarvis') addMessage(m.role, m.text, false);
+    });
+    // Small continuity line
+    const since = Date.now() - (chatLog[chatLog.length - 1]?.time || Date.now());
+    if (since > 60000) {
+      const mins = Math.floor(since / 60000);
+      const line = mins < 60
+        ? `Back after ${mins} minute${mins === 1 ? '' : 's'}.`
+        : mins < 1440
+        ? `Back after ${Math.floor(mins / 60)} hour${Math.floor(mins / 60) === 1 ? '' : 's'}.`
+        : `It's been a while.`;
+      addMessage('system', line, false);
+    }
+  }
 
-  try {
-    const facts = memorySummary();
-    const historyBlock = conversationHistory.slice(-6)
-      .map(t => `User: ${t.user}\nJARVIS: ${t.assistant}`)
-      .join('\n\n');
+  function generateGreeting() {
+    const h = new Date().getHours();
+    const name = profile.name ? `, ${profile.name}` : '';
+    const firstTime = profile.totalTurns === 0;
+    if (firstTime) {
+      return `Systems online${name}. I'll remember what we discuss — start wherever you like.`;
+    }
+    if (h < 5)  return `Working late again${name}? I'm here.`;
+    if (h < 12) return `Good morning${name}. What's first?`;
+    if (h < 17) return `Afternoon${name}. What do you need?`;
+    if (h < 21) return `Evening${name}. Ready when you are.`;
+    return `Late one${name}? I'm listening.`;
+  }
 
-    const fullPrompt =
-      SYSTEM_PROMPT +
-      (facts ? `\n\n${facts}` : '') +
-      (historyBlock ? `\n\nRecent conversation:\n${historyBlock}` : '') +
-      `\n\nUser: ${text}\nJARVIS:`;
+  function clearConversation() {
+    chatLog = [];
+    saveChatLog();
+    chat.querySelectorAll('.msg').forEach(m => m.remove());
+    addMessage('system', 'Conversation cleared. Memory retained.', false);
+  }
 
-    let reply;
-    if (typeof puter !== 'undefined' && puter.ai) {
-      const response = await puter.ai.chat(fullPrompt, { model: MODEL });
-      reply = typeof response === 'string'
+  function wipeMemory() {
+    if (!confirm('This erases all memory, facts, chat history, and your profile. Continue?')) return;
+    localStorage.removeItem(MEM_KEY);
+    localStorage.removeItem(CHAT_KEY);
+    localStorage.removeItem(PROFILE_KEY);
+    memory = { facts: [], patterns: {}, topics: {} };
+    chatLog = [];
+    profile = {
+      name: null, createdAt: Date.now(), lastSeen: Date.now(),
+      sessions: 1, totalTurns: 0, favoriteTopics: {}
+    };
+    saveMemory(); saveChatLog(); saveProfile();
+    chat.querySelectorAll('.msg').forEach(m => m.remove());
+    addMessage('system', 'Everything wiped. We start fresh.', false);
+    updateStats();
+  }
+
+  // ============================================================
+  // VOICE OUT
+  // ============================================================
+  function speak(text) {
+    if (!voiceOutput || !window.speechSynthesis) return;
+    try {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = 0.98; u.pitch = 0.8; u.volume = 1;
+      const voices = window.speechSynthesis.getVoices();
+      const preferred = voices.find(v =>
+        /david|daniel|alex|google uk english male|microsoft david|ryan|guy/i.test(v.name)
+      ) || voices.find(v => v.lang && v.lang.startsWith('en-GB'))
+        || voices.find(v => v.lang && v.lang.startsWith('en'));
+      if (preferred) u.voice = preferred;
+      u.onstart = () => setStatus('● SPEAKING', 'speaking');
+      u.onend = () => {
+        if (continuousMode) setStatus('● LISTENING FOR "JARVIS"', 'listening');
+        else setStatus('● ONLINE');
+      };
+      window.speechSynthesis.speak(u);
+    } catch (e) { console.warn('TTS', e); }
+  }
+  if (window.speechSynthesis) {
+    window.speechSynthesis.onvoiceschanged = () => {};
+    window.speechSynthesis.getVoices();
+  }
+
+  // ============================================================
+  // COMMAND HANDLERS
+  // ============================================================
+  function tryMemoryCommand(text) {
+    const t = text.trim();
+    let m;
+
+    // "my name is X" / "I am X" / "I'm X"
+    m = t.match(/^(?:my name is|i am|i'm|call me)\s+([A-Z][a-zA-Z'\-]{1,30})\.?$/i);
+    if (m) {
+      const name = m[1].trim();
+      profile.name = name;
+      profile.nameSetAt = Date.now();
+      saveProfile();
+      return `Noted${name ? ', ' + name : ''}. I'll remember that.`;
+    }
+
+    // "what's my name"
+    if (/^what(?:'s| is) my name\??$/i.test(t)) {
+      return profile.name ? `You're ${profile.name}.` : "You haven't told me yet.";
+    }
+
+    // "remember that X is Y"
+    m = t.match(/^(?:remember|note)\s+(?:that\s+)?(.+?)\s+(?:is|are)\s+(.+)$/i);
+    if (m) {
+      const key = m[1].trim();
+      const value = m[2].trim().replace(/[.!?]+$/, '');
+      rememberFact(key, value);
+      return `Noted — ${key}: ${value}.`;
+    }
+
+    // "remember X: Y"
+    m = t.match(/^(?:remember|note)\s+(.+?)\s*[:=]\s*(.+)$/i);
+    if (m) {
+      const key = m[1].trim(), value = m[2].trim();
+      rememberFact(key, value);
+      return `Noted — ${key}: ${value}.`;
+    }
+
+    // "what is X" / "what do you know about X"
+    m = t.match(/^(?:what(?:'s| is)|who(?:'s| is)|do you remember|what do you know about)\s+(?:my\s+)?(.+?)\??$/i);
+    if (m) {
+      const key = m[1].trim();
+      const v = getFact(key) || getFact('my ' + key);
+      if (v) return `${key} is ${v}.`;
+    }
+
+    // "forget X"
+    m = t.match(/^(?:forget|delete)\s+(?:that\s+)?(.+?)\.?$/i);
+    if (m) {
+      const key = m[1].trim();
+      if (forgetFact(key)) return `Forgotten: ${key}.`;
+    }
+
+    // "what do you know about me"
+    if (/^what do you know about me\??$/i.test(t)) {
+      const parts = [];
+      if (profile.name) parts.push(`You're ${profile.name}.`);
+      if (memory.facts.length) parts.push(`${memory.facts.length} thing${memory.facts.length === 1 ? '' : 's'} on file.`);
+      const topics = topTopics(3);
+      if (topics.length) parts.push(`You ask about ${topics.join(', ')} most often.`);
+      return parts.join(' ') || "Not much yet. Tell me something.";
+    }
+
+    return null;
+  }
+
+  function tryDirectCommand(text) {
+    const t = text.toLowerCase().trim();
+    if (/^(?:what(?:'s| is) the )?time\b/.test(t) || t === 'time') {
+      return 'It is ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}) + '.';
+    }
+    if (/^(?:what(?:'s| is) (?:the )?)?date\b/.test(t) || t === 'date') {
+      return 'Today is ' + new Date().toLocaleDateString(undefined, {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+      }) + '.';
+    }
+    if (/^(?:clear|reset)(?:\s+(?:chat|conversation))?$/.test(t)) {
+      clearConversation();
+      return null; // clearConversation already added system msg
+    }
+    if (/^(?:hello|hi|hey)(?:\s+jarvis)?[.!]?$/.test(t)) {
+      return profile.name ? `Hello, ${profile.name}.` : 'Hello.';
+    }
+    if (/^(?:thank you|thanks)(?:\s+jarvis)?[.!]?$/.test(t)) {
+      return 'Of course.';
+    }
+    return null;
+  }
+
+  // ============================================================
+  // MAIN — SEND MESSAGE
+  // ============================================================
+  async function sendMessage(text) {
+    text = (text || '').trim();
+    if (!text || isProcessing) return;
+
+    addMessage('user', text);
+    input.value = '';
+    input.focus();
+
+    profile.totalTurns = (profile.totalTurns || 0) + 1;
+    profile.lastSeen = Date.now();
+    saveProfile();
+    trackTopic(text);
+    updateStats();
+
+    const direct = tryDirectCommand(text);
+    if (direct) {
+      addMessage('jarvis', direct);
+      speak(direct);
+      return;
+    }
+    const mem = tryMemoryCommand(text);
+    if (mem) {
+      addMessage('jarvis', mem);
+      speak(mem);
+      return;
+    }
+
+    isProcessing = true;
+    sendBtn.disabled = true;
+    showTyping(true);
+    setStatus('● THINKING', 'thinking');
+
+    try {
+      if (typeof puter === 'undefined' || !puter.ai) {
+        throw new Error('Puter.js did not load. Reload the page with internet access.');
+      }
+
+      const historyBlock = chatLog.slice(-8)
+        .map(m => (m.role === 'user' ? 'User: ' : 'JARVIS: ') + m.text)
+        .join('\n');
+
+      const prompt =
+        buildSystemPrompt() +
+        (memorySummary() ? '\n\n' + memorySummary() : '') +
+        (historyBlock ? '\n\nRecent conversation:\n' + historyBlock : '') +
+        `\n\nUser: ${text}\nJARVIS:`;
+
+      const response = await puter.ai.chat(prompt, { model: MODEL });
+      let reply = typeof response === 'string'
         ? response
         : (response?.message?.content || response?.text || String(response));
-    } else {
-      reply = "I can't reach my language core right now. Please reload the page.";
-    }
 
-    reply = (reply || '').trim().replace(/^JARVIS:\s*/i, '');
-    addMessage('jarvis', reply);
-    speak(reply);
-    conversationHistory.push({ user: text, assistant: reply });
-    if (conversationHistory.length > 20) conversationHistory.shift();
+      reply = (reply || '').trim()
+        .replace(/^JARVIS:\s*/i, '')
+        .replace(/^["']|["']$/g, '');
 
-    if (!voiceOutput) {
-      setStatus(continuousMode ? '● LISTENING FOR "JARVIS"' : '● ONLINE',
-                continuousMode ? 'listening' : '');
+      addMessage('jarvis', reply);
+      speak(reply);
+
+      if (!voiceOutput) {
+        setStatus(continuousMode ? '● LISTENING FOR "JARVIS"' : '● ONLINE',
+                  continuousMode ? 'listening' : '');
+      }
+    } catch (err) {
+      console.error(err);
+      addMessage('error', 'Error: ' + (err.message || err));
+      setStatus('● ERROR', 'error');
+      setTimeout(() => setStatus('● ONLINE'), 4000);
+    } finally {
+      isProcessing = false;
+      sendBtn.disabled = false;
+      showTyping(false);
+      input.focus();
     }
-  } catch (err) {
-    console.error(err);
-    const errMsg = 'I ran into an error: ' + (err.message || err);
-    addMessage('jarvis', errMsg);
-    setStatus('● ERROR');
-    setTimeout(() => setStatus('● ONLINE'), 3000);
-  } finally {
-    isProcessing = false;
-    sendBtn.disabled = false;
-    showTyping(false);
   }
-}
 
-// ---------- VOICE INPUT ----------
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  // ============================================================
+  // VOICE IN
+  // ============================================================
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-function initRecognition() {
-  if (!SpeechRecognition) return null;
-  const r = new SpeechRecognition();
-  r.continuous = false;
-  r.interimResults = false;
-  r.lang = 'en-US';
-  r.maxAlternatives = 1;
-  return r;
-}
-
-// Single-shot listen (mic button)
-function listenOnce() {
-  if (!SpeechRecognition) {
-    addMessage('system', 'Speech recognition is not supported in this browser. Use Chrome or Edge.');
-    return;
+  function initRecognition() {
+    if (!SpeechRecognition) return null;
+    const r = new SpeechRecognition();
+    r.continuous = false;
+    r.interimResults = false;
+    r.lang = 'en-US';
+    r.maxAlternatives = 1;
+    return r;
   }
-  if (isListening) return;
 
-  recognition = initRecognition();
-  recognition.onstart = () => {
-    isListening = true;
-    micBtn.classList.add('listening');
-    setStatus('● LISTENING', 'listening');
-  };
-  recognition.onend = () => {
-    isListening = false;
-    micBtn.classList.remove('listening');
-    if (!isProcessing && !continuousMode) setStatus('● ONLINE');
-  };
-  recognition.onerror = (e) => {
-    if (e.error !== 'no-speech' && e.error !== 'aborted') {
-      addMessage('system', 'Speech error: ' + e.error);
+  function listenOnce() {
+    if (!SpeechRecognition) {
+      addMessage('system', 'Speech recognition needs Chrome or Edge.');
+      return;
     }
-  };
-  recognition.onresult = (e) => {
-    const transcript = e.results[0][0].transcript;
-    sendMessage(transcript);
-  };
+    if (isListening) return;
+    recognition = initRecognition();
+    recognition.onstart = () => {
+      isListening = true;
+      micBtn.classList.add('listening');
+      setStatus('● LISTENING', 'listening');
+    };
+    recognition.onend = () => {
+      isListening = false;
+      micBtn.classList.remove('listening');
+      if (!isProcessing && !continuousMode) setStatus('● ONLINE');
+    };
+    recognition.onerror = (e) => {
+      if (e.error !== 'no-speech' && e.error !== 'aborted') {
+        addMessage('system', 'Speech error: ' + e.error);
+      }
+    };
+    recognition.onresult = (e) => {
+      sendMessage(e.results[0][0].transcript);
+    };
+    try { recognition.start(); } catch (e) {}
+  }
 
-  try { recognition.start(); } catch (e) {}
-}
+  function startWakeListener() {
+    if (!SpeechRecognition) {
+      addMessage('system', 'Continuous mode needs Chrome or Edge.');
+      continuousMode = false;
+      continuousToggle.classList.remove('active');
+      return;
+    }
+    wakeListener = initRecognition();
+    wakeListener.continuous = true;
+    wakeListener.interimResults = false;
+    wakeListener.onstart = () => setStatus('● LISTENING FOR "JARVIS"', 'listening');
+    wakeListener.onend = () => {
+      if (continuousMode) {
+        setTimeout(() => {
+          if (continuousMode) { try { wakeListener.start(); } catch (e) {} }
+        }, 400);
+      }
+    };
+    wakeListener.onerror = (e) => {
+      if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+        addMessage('system', 'Microphone permission denied.');
+        stopWakeListener();
+      }
+    };
+    wakeListener.onresult = (e) => {
+      const last = e.results[e.results.length - 1];
+      if (!last.isFinal) return;
+      const transcript = last[0].transcript.trim();
+      const lower = transcript.toLowerCase();
+      if (lower.includes(WAKE_WORD)) {
+        const cleaned = lower
+          .replace(new RegExp('\\b' + WAKE_WORD + '\\b[,\\.!\\?]?', 'gi'), '').trim();
+        if (cleaned.length > 2) {
+          sendMessage(cleaned);
+        } else {
+          setStatus('● YES?', 'speaking');
+          speak('Yes?');
+          setTimeout(() => {
+            try { wakeListener.stop(); } catch (e) {}
+            setTimeout(() => {
+              const oneShot = initRecognition();
+              oneShot.onresult = (ev) => sendMessage(ev.results[0][0].transcript);
+              oneShot.onend = () => {
+                if (continuousMode) {
+                  setTimeout(() => { try { wakeListener.start(); } catch (e) {} }, 400);
+                }
+              };
+              try { oneShot.start(); } catch (e) {}
+            }, 500);
+          }, 300);
+        }
+      }
+    };
+    try { wakeListener.start(); } catch (e) {}
+  }
 
-// Continuous wake-word listener
-function startWakeListener() {
-  if (!SpeechRecognition) {
-    addMessage('system', 'Continuous mode requires Chrome or Edge.');
+  function stopWakeListener() {
     continuousMode = false;
     continuousToggle.classList.remove('active');
-    return;
-  }
-
-  wakeListener = initRecognition();
-  wakeListener.continuous = true;
-  wakeListener.interimResults = false;
-
-  wakeListener.onstart = () => {
-    setStatus('● LISTENING FOR "JARVIS"', 'listening');
-  };
-
-  wakeListener.onend = () => {
-    if (continuousMode) {
-      // auto-restart if browser stopped it
-      setTimeout(() => {
-        if (continuousMode) {
-          try { wakeListener.start(); } catch (e) {}
-        }
-      }, 400);
+    if (wakeListener) {
+      try { wakeListener.stop(); } catch (e) {}
+      wakeListener = null;
     }
-  };
+    setStatus('● ONLINE');
+  }
 
-  wakeListener.onerror = (e) => {
-    if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
-      addMessage('system', 'Microphone permission denied.');
-      stopWakeListener();
+  // ============================================================
+  // EVENT BINDINGS
+  // ============================================================
+  sendBtn.addEventListener('click', e => { e.preventDefault(); sendMessage(input.value); });
+
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.keyCode === 13) {
+      e.preventDefault();
+      sendMessage(input.value);
     }
-  };
+  });
 
-  wakeListener.onresult = (e) => {
-    const last = e.results[e.results.length - 1];
-    if (!last.isFinal) return;
-    const transcript = last[0].transcript.trim();
-    const lower = transcript.toLowerCase();
+  micBtn.addEventListener('click', e => { e.preventDefault(); listenOnce(); });
 
-    if (lower.includes(WAKE_WORD)) {
-      const cleaned = lower
-        .replace(new RegExp('\\b' + WAKE_WORD + '\\b[,\\.!\\?]?', 'gi'), '')
-        .trim();
-      if (cleaned.length > 2) {
-        // Command spoke in same breath
-        sendMessage(cleaned);
-      } else {
-        // Just "Jarvis" — ask and listen once
-        setStatus('● YES?', 'speaking');
-        speak('Yes?');
-        setTimeout(() => {
-          // Pause wake listener, do single listen, then resume
-          try { wakeListener.stop(); } catch (e) {}
-          setTimeout(() => {
-            const oneShot = initRecognition();
-            oneShot.onresult = (ev) => sendMessage(ev.results[0][0].transcript);
-            oneShot.onend = () => {
-              if (continuousMode) {
-                setTimeout(() => { try { wakeListener.start(); } catch (e) {} }, 400);
-              }
-            };
-            try { oneShot.start(); } catch (e) {}
-          }, 500);
-        }, 300);
-      }
+  continuousToggle.addEventListener('click', () => {
+    if (continuousMode) stopWakeListener();
+    else {
+      continuousMode = true;
+      continuousToggle.classList.add('active');
+      startWakeListener();
     }
-  };
+  });
 
-  try { wakeListener.start(); } catch (e) {}
-}
+  voiceToggle.addEventListener('click', () => {
+    voiceOutput = !voiceOutput;
+    voiceToggle.classList.toggle('active', voiceOutput);
+    if (!voiceOutput && window.speechSynthesis) window.speechSynthesis.cancel();
+  });
 
-function stopWakeListener() {
-  continuousMode = false;
-  continuousToggle.classList.remove('active');
-  if (wakeListener) {
-    try { wakeListener.stop(); } catch (e) {}
-    wakeListener = null;
-  }
-  setStatus('● ONLINE');
-}
+  clearBtn.addEventListener('click', clearConversation);
+  wipeBtn.addEventListener('click', wipeMemory);
 
-// ---------- EVENT BINDINGS ----------
-sendBtn.addEventListener('click', () => sendMessage(input.value));
-
-input.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    sendMessage(input.value);
-  }
-});
-
-micBtn.addEventListener('click', listenOnce);
-
-continuousToggle.addEventListener('click', () => {
-  if (continuousMode) {
-    stopWakeListener();
-  } else {
-    continuousMode = true;
-    continuousToggle.classList.add('active');
-    startWakeListener();
-  }
-});
-
-voiceToggle.addEventListener('click', () => {
-  voiceOutput = !voiceOutput;
-  voiceToggle.classList.toggle('active', voiceOutput);
-  if (!voiceOutput && window.speechSynthesis) {
-    window.speechSynthesis.cancel();
-  }
-});
-
-clearBtn.addEventListener('click', () => {
-  clearConversation();
-});
-
-// ---------- INIT ----------
-window.addEventListener('load', () => {
-  if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
+  // ---------- FEATURE DETECTION ----------
+  if (!SpeechRecognition) {
     micBtn.disabled = true;
     micBtn.title = 'Speech recognition not supported in this browser';
   }
@@ -773,8 +881,12 @@ window.addEventListener('load', () => {
     voiceToggle.style.opacity = '0.4';
     voiceToggle.style.pointerEvents = 'none';
   }
+
+  // ---------- BOOT ----------
+  updateStats();
+  replayChatLog();
   setTimeout(() => input.focus(), 200);
-});
+}
 </script>
 </body>
 </html>
