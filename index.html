@@ -7,122 +7,162 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
-body{background:#02040a;color:#c5e8f7;font-family:'Segoe UI',system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;padding:12px;overflow:hidden;position:relative}
-.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,212,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.03) 1px,transparent 1px);background-size:44px 44px;animation:gm 20s linear infinite}
-@keyframes gm{from{background-position:0 0}to{background-position:44px 44px}}
-.bg-glow{position:fixed;inset:-50%;z-index:0;pointer-events:none;background:radial-gradient(circle at center,rgba(0,212,255,.09) 0%,transparent 55%);animation:pu 9s ease-in-out infinite}
-@keyframes pu{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.12);opacity:1}}
-.scanlines{position:fixed;inset:0;z-index:999;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,212,255,.014) 3px,transparent 4px);mix-blend-mode:overlay}
-.container{width:100%;max-width:1000px;position:relative;z-index:10;display:flex;flex-direction:column;height:100%;max-height:100vh}
-.header{display:grid;grid-template-columns:80px 1fr 80px;align-items:center;gap:12px;padding:6px 0 12px;flex-shrink:0}
-.orb{width:68px;height:68px}
+body{background:#01030a;color:#c5e8f7;font-family:'Segoe UI',system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;padding:12px;overflow:hidden;position:relative}
+
+.bg-aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg-aurora::before,.bg-aurora::after{content:'';position:absolute;width:80vmax;height:80vmax;border-radius:50%;filter:blur(120px);opacity:.12;animation:drift 24s ease-in-out infinite alternate}
+.bg-aurora::before{background:radial-gradient(circle,#00d4ff,transparent 65%);top:-30vmax;left:-20vmax}
+.bg-aurora::after{background:radial-gradient(circle,#5c2eff,transparent 65%);bottom:-30vmax;right:-20vmax;animation-duration:32s}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(20vmax,-10vmax) scale(1.15)}}
+
+.bg-grid{position:fixed;inset:0;z-index:1;pointer-events:none;background-image:linear-gradient(rgba(0,212,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.035) 1px,transparent 1px);background-size:50px 50px;mask-image:radial-gradient(circle at center,black 30%,transparent 80%)}
+
+.scanlines{position:fixed;inset:0;z-index:999;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,212,255,.012) 3px,transparent 4px);mix-blend-mode:overlay}
+
+.vignette{position:fixed;inset:0;z-index:998;pointer-events:none;background:radial-gradient(ellipse at center,transparent 40%,rgba(0,0,0,.65) 100%)}
+
+.container{width:100%;max-width:1040px;position:relative;z-index:10;display:flex;flex-direction:column;height:100%;max-height:100vh}
+
+.header{display:grid;grid-template-columns:90px 1fr 90px;align-items:center;gap:14px;padding:6px 0 14px;flex-shrink:0}
+.orb{width:76px;height:76px;filter:drop-shadow(0 0 14px rgba(0,212,255,.55))}
 .orb svg{width:100%;height:100%}
-.orb .ro,.orb .rm,.orb .ri{transform-origin:50px 50px;animation:sp 12s linear infinite}
+.orb .ro,.orb .rm,.orb .ri,.orb .ro2{transform-origin:50px 50px;animation:sp 12s linear infinite}
 .orb .rm{animation-duration:8s;animation-direction:reverse}
 .orb .ri{animation-duration:5s}
+.orb .ro2{animation-duration:18s}
 @keyframes sp{to{transform:rotate(360deg)}}
 .orb .core{animation:cp 2.4s ease-in-out infinite;transform-origin:50px 50px}
-@keyframes cp{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.15)}}
+@keyframes cp{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.18)}}
 .orb.listening .core{animation-duration:.9s}
-.orb.thinking .core{animation-duration:.5s}
-.orb.speaking .core{animation-duration:.7s}
+.orb.thinking .core{animation-duration:.45s}
+.orb.speaking .core{animation-duration:.65s}
+
 .tb{text-align:center}
-.tb h1{font-size:26px;letter-spacing:12px;color:#00d4ff;font-weight:300;margin-left:12px;text-shadow:0 0 20px rgba(0,212,255,.7),0 0 60px rgba(0,212,255,.3);animation:tg 4s ease-in-out infinite}
-@keyframes tg{0%,100%{text-shadow:0 0 20px rgba(0,212,255,.6),0 0 60px rgba(0,212,255,.3)}50%{text-shadow:0 0 30px rgba(0,212,255,.95),0 0 80px rgba(0,212,255,.5)}}
-.st{font-size:11px;color:#4a7a9b;letter-spacing:3px;text-transform:uppercase;margin-top:6px;height:14px;transition:color .3s}
+.tb h1{font-size:30px;letter-spacing:14px;color:#00d4ff;font-weight:200;margin-left:14px;text-shadow:0 0 24px rgba(0,212,255,.75),0 0 80px rgba(0,212,255,.35);animation:tg 4s ease-in-out infinite;background:linear-gradient(180deg,#e0faff,#00d4ff 60%,#0072b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+@keyframes tg{0%,100%{filter:drop-shadow(0 0 10px rgba(0,212,255,.6))}50%{filter:drop-shadow(0 0 22px rgba(0,212,255,.95))}}
+.st{font-size:11px;color:#4a7a9b;letter-spacing:4px;text-transform:uppercase;margin-top:8px;height:14px;transition:color .3s;display:flex;align-items:center;justify-content:center;gap:6px}
+.st::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}
 .st.listening{color:#00ff88;animation:bl 1.2s ease-in-out infinite}
 .st.thinking{color:#ffaa00;animation:bl .8s ease-in-out infinite}
 .st.speaking{color:#00d4ff;animation:bl 1s ease-in-out infinite}
-.st.error{color:#dc2626}
+.st.error{color:#ff3b3b}
 @keyframes bl{0%,100%{opacity:1}50%{opacity:.35}}
-.diag{display:flex;flex-direction:column;gap:4px;font-size:9px;color:#3d5a73;letter-spacing:1.5px;text-transform:uppercase;text-align:right}
-.diag .bar{width:60px;height:3px;background:rgba(0,212,255,.1);border-radius:2px;overflow:hidden;margin-left:auto}
-.diag .bar>div{height:100%;background:#00d4ff;transition:width .5s;box-shadow:0 0 6px #00d4ff}
-.waveform-wrap{height:34px;margin-bottom:10px;flex-shrink:0;background:rgba(10,16,28,.6);border:1px solid rgba(0,212,255,.15);border-radius:8px;overflow:hidden}
-#waveform{width:100%;height:100%;display:block}
-.chat-wrapper{flex:1;position:relative;background:rgba(10,16,28,.75);border:1px solid rgba(0,212,255,.2);border-radius:4px;padding:20px;overflow-y:auto;margin-bottom:12px;backdrop-filter:blur(12px);scroll-behavior:smooth;min-height:0;box-shadow:inset 0 0 60px rgba(0,212,255,.04),0 4px 40px rgba(0,0,0,.5)}
-.chat-wrapper::before,.chat-wrapper::after,.chat-wrapper>.cbl,.chat-wrapper>.cbr{content:'';position:absolute;width:18px;height:18px;border-color:#00d4ff;pointer-events:none}
-.chat-wrapper::before{top:-1px;left:-1px;border-top:2px solid;border-left:2px solid}
-.chat-wrapper::after{top:-1px;right:-1px;border-top:2px solid;border-right:2px solid}
-.chat-wrapper>.cbl{bottom:-1px;left:-1px;border-bottom:2px solid;border-left:2px solid}
-.chat-wrapper>.cbr{bottom:-1px;right:-1px;border-bottom:2px solid;border-right:2px solid}
-.chat-wrapper::-webkit-scrollbar{width:6px}
-.chat-wrapper::-webkit-scrollbar-thumb{background:rgba(0,212,255,.3);border-radius:3px}
-.msg{margin-bottom:16px;line-height:1.65;font-size:15px;animation:fi .35s cubic-bezier(.2,.8,.2,1);display:flex;gap:12px}
-@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.msg .label{font-weight:700;min-width:62px;flex-shrink:0;font-size:12px;padding-top:3px;letter-spacing:1px}
-.msg.user .label{color:#7dd3fc}
+
+.diag{display:flex;flex-direction:column;gap:5px;font-size:9px;color:#3d5a73;letter-spacing:1.5px;text-transform:uppercase;text-align:right}
+.diag .bar{width:66px;height:3px;background:rgba(0,212,255,.08);border-radius:2px;overflow:hidden;margin-left:auto}
+.diag .bar>div{height:100%;background:linear-gradient(90deg,#00d4ff,#7dd3fc);transition:width .5s;box-shadow:0 0 8px #00d4ff}
+
+.waveform-wrap{height:40px;margin-bottom:12px;flex-shrink:0;background:linear-gradient(180deg,rgba(10,16,28,.7),rgba(10,16,28,.4));border:1px solid rgba(0,212,255,.18);border-radius:10px;overflow:hidden;backdrop-filter:blur(10px);position:relative}
+.waveform-wrap::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(0,212,255,.06),transparent);animation:sweep 4s linear infinite;pointer-events:none}
+@keyframes sweep{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+#waveform{width:100%;height:100%;display:block;position:relative}
+
+.chat-wrapper{flex:1;position:relative;background:linear-gradient(180deg,rgba(10,16,28,.85),rgba(5,10,20,.75));border:1px solid rgba(0,212,255,.22);border-radius:10px;padding:22px;overflow-y:auto;margin-bottom:12px;backdrop-filter:blur(14px);scroll-behavior:smooth;min-height:0;box-shadow:inset 0 0 80px rgba(0,212,255,.05),0 8px 50px rgba(0,0,0,.6),0 0 0 1px rgba(0,212,255,.05)}
+.chat-wrapper::before,.chat-wrapper::after,.chat-wrapper>.cbl,.chat-wrapper>.cbr{content:'';position:absolute;width:22px;height:22px;border-color:#00d4ff;pointer-events:none;filter:drop-shadow(0 0 6px rgba(0,212,255,.6))}
+.chat-wrapper::before{top:-1px;left:-1px;border-top:2px solid;border-left:2px solid;border-radius:10px 0 0 0}
+.chat-wrapper::after{top:-1px;right:-1px;border-top:2px solid;border-right:2px solid;border-radius:0 10px 0 0}
+.chat-wrapper>.cbl{bottom:-1px;left:-1px;border-bottom:2px solid;border-left:2px solid;border-radius:0 0 0 10px}
+.chat-wrapper>.cbr{bottom:-1px;right:-1px;border-bottom:2px solid;border-right:2px solid;border-radius:0 0 10px 0}
+.chat-wrapper::-webkit-scrollbar{width:8px}
+.chat-wrapper::-webkit-scrollbar-track{background:rgba(0,212,255,.03);border-radius:4px}
+.chat-wrapper::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#00d4ff,#0072b8);border-radius:4px}
+
+.msg{margin-bottom:18px;line-height:1.7;font-size:15px;animation:fi .4s cubic-bezier(.2,.8,.2,1);display:flex;gap:14px}
+@keyframes fi{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.msg .label{font-weight:700;min-width:64px;flex-shrink:0;font-size:11px;padding-top:4px;letter-spacing:1.5px;text-transform:uppercase}
+.msg.user .label{color:#7dd3fc;text-shadow:0 0 10px rgba(125,211,252,.4)}
 .msg.user .text{color:#cbe9fb}
-.msg.jarvis .label{color:#00d4ff}
+.msg.jarvis .label{color:#00d4ff;text-shadow:0 0 10px rgba(0,212,255,.5)}
 .msg.jarvis .text{color:#e8faff}
 .msg.system .label{color:#475569}
 .msg.system .text{color:#64748b;font-style:italic;font-size:13px}
-.msg.error .label{color:#dc2626}
+.msg.error .label{color:#ff3b3b}
 .msg.error .text{color:#fca5a5}
 .msg .text{flex:1;word-wrap:break-word;white-space:pre-wrap}
-.typing{display:none;gap:4px;padding:6px 0 12px 74px}
+.msg.jarvis .text::after{content:'';display:inline-block;width:8px;height:16px;background:#00d4ff;margin-left:4px;animation:cur 1s step-end infinite;vertical-align:text-bottom;opacity:0}
+.msg.jarvis.streaming .text::after{opacity:1}
+@keyframes cur{0%,100%{opacity:1}50%{opacity:0}}
+
+.typing{display:none;gap:5px;padding:8px 0 14px 78px}
 .typing.active{display:flex}
-.typing span{width:7px;height:7px;border-radius:50%;background:#00d4ff;animation:bo 1.2s ease-in-out infinite}
+.typing span{width:8px;height:8px;border-radius:50%;background:linear-gradient(180deg,#7dd3fc,#00d4ff);animation:bo 1.2s ease-in-out infinite;box-shadow:0 0 8px rgba(0,212,255,.6)}
 .typing span:nth-child(2){animation-delay:.15s}
 .typing span:nth-child(3){animation-delay:.3s}
 @keyframes bo{0%,80%,100%{transform:scale(.5);opacity:.35}40%{transform:scale(1);opacity:1}}
-.input-area{display:flex;gap:8px;align-items:center;flex-shrink:0}
-.input-area input{flex:1;background:rgba(20,30,48,.9);border:1px solid rgba(0,212,255,.25);color:#e0f7ff;padding:14px 16px;border-radius:6px;font-size:15px;outline:none;transition:border-color .3s,box-shadow .3s;font-family:inherit;min-width:0}
-.input-area input:focus{border-color:#00d4ff;box-shadow:0 0 24px rgba(0,212,255,.25)}
-.input-area input::placeholder{color:#4a7a9b}
-.btn{background:rgba(0,212,255,.1);border:1px solid #00d4ff;color:#00d4ff;padding:14px 18px;border-radius:6px;cursor:pointer;font-size:14px;font-weight:600;transition:all .2s;font-family:inherit;white-space:nowrap;flex-shrink:0;letter-spacing:1px}
-.btn:hover:not(:disabled){background:rgba(0,212,255,.25);box-shadow:0 0 20px rgba(0,212,255,.3)}
+
+.input-area{display:flex;gap:10px;align-items:center;flex-shrink:0}
+.input-wrap{flex:1;position:relative;display:flex;align-items:center}
+.input-wrap::before{content:'';position:absolute;inset:-1px;border-radius:8px;padding:1px;background:linear-gradient(135deg,rgba(0,212,255,.4),transparent 40%,transparent 60%,rgba(92,46,255,.4));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;opacity:.6;transition:opacity .3s}
+.input-wrap:focus-within::before{opacity:1;animation:brd 3s linear infinite}
+@keyframes brd{0%{background:linear-gradient(0deg,rgba(0,212,255,.5),transparent 40%,transparent 60%,rgba(92,46,255,.5))}25%{background:linear-gradient(90deg,rgba(0,212,255,.5),transparent 40%,transparent 60%,rgba(92,46,255,.5))}50%{background:linear-gradient(180deg,rgba(0,212,255,.5),transparent 40%,transparent 60%,rgba(92,46,255,.5))}75%{background:linear-gradient(270deg,rgba(0,212,255,.5),transparent 40%,transparent 60%,rgba(92,46,255,.5))}100%{background:linear-gradient(360deg,rgba(0,212,255,.5),transparent 40%,transparent 60%,rgba(92,46,255,.5))}}
+.input-wrap input{flex:1;background:rgba(15,24,40,.9);border:1px solid rgba(0,212,255,.18);color:#e0f7ff;padding:15px 18px;border-radius:8px;font-size:15px;outline:none;font-family:inherit;min-width:0;transition:border-color .3s,box-shadow .3s}
+.input-wrap input:focus{border-color:rgba(0,212,255,.4);box-shadow:0 0 30px rgba(0,212,255,.15)}
+.input-wrap input::placeholder{color:#4a7a9b}
+
+.btn{background:linear-gradient(180deg,rgba(0,212,255,.15),rgba(0,212,255,.05));border:1px solid rgba(0,212,255,.5);color:#00d4ff;padding:15px 22px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;transition:all .2s;font-family:inherit;white-space:nowrap;flex-shrink:0;letter-spacing:1.5px;position:relative;overflow:hidden}
+.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(0,212,255,.3),transparent);transform:translateX(-100%);transition:transform .5s}
+.btn:hover:not(:disabled)::before{transform:translateX(100%)}
+.btn:hover:not(:disabled){background:linear-gradient(180deg,rgba(0,212,255,.3),rgba(0,212,255,.1));box-shadow:0 0 24px rgba(0,212,255,.4),inset 0 0 20px rgba(0,212,255,.1)}
 .btn:active:not(:disabled){transform:scale(.96)}
-.btn.mic{font-size:18px;padding:14px 15px}
-.btn.mic.listening{background:rgba(220,38,38,.3);border-color:#dc2626;color:#fca5a5;animation:mp 1.2s ease-in-out infinite}
-@keyframes mp{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.4)}50%{box-shadow:0 0 0 12px rgba(220,38,38,0)}}
+.btn.mic{font-size:20px;padding:15px 18px}
+.btn.mic.listening{background:linear-gradient(180deg,rgba(255,59,59,.3),rgba(255,59,59,.1));border-color:#ff3b3b;color:#ffaaaa;animation:mp 1.2s ease-in-out infinite}
+@keyframes mp{0%,100%{box-shadow:0 0 0 0 rgba(255,59,59,.5)}50%{box-shadow:0 0 0 14px rgba(255,59,59,0)}}
 .btn:disabled{opacity:.4;cursor:not-allowed}
-.mode-bar{display:flex;justify-content:center;gap:14px;margin-top:10px;font-size:12px;flex-wrap:wrap;flex-shrink:0}
-.mode-toggle{display:flex;align-items:center;gap:6px;color:#4a7a9b;cursor:pointer;user-select:none;transition:color .3s}
-.mode-toggle:hover{color:#7dd3fc}
+
+.mode-bar{display:flex;justify-content:center;gap:16px;margin-top:12px;font-size:12px;flex-wrap:wrap;flex-shrink:0}
+.mode-toggle{display:flex;align-items:center;gap:7px;color:#4a7a9b;cursor:pointer;user-select:none;transition:all .3s;padding:6px 12px;border-radius:6px;border:1px solid transparent}
+.mode-toggle:hover{color:#7dd3fc;background:rgba(0,212,255,.05);border-color:rgba(0,212,255,.15)}
 .mode-toggle.active{color:#00ff88}
 .mode-toggle.active.voice{color:#00d4ff}
 .mode-toggle .dot{width:8px;height:8px;border-radius:50%;background:currentColor;transition:all .3s}
-.mode-toggle.active .dot{box-shadow:0 0 8px currentColor}
-.modal-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.85);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:20px}
+.mode-toggle.active .dot{box-shadow:0 0 10px currentColor,0 0 20px currentColor}
+
+.modal-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;animation:fi .2s}
 .modal-overlay.active{display:flex}
-.modal{background:#0a1220;border:1px solid #00d4ff;border-radius:8px;padding:28px;max-width:560px;width:100%;box-shadow:0 0 60px rgba(0,212,255,.3);max-height:90vh;overflow-y:auto}
-.modal h2{color:#00d4ff;font-size:16px;letter-spacing:4px;text-transform:uppercase;margin-bottom:10px;font-weight:400}
-.modal h3{color:#7dd3fc;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin:18px 0 8px;font-weight:400;border-bottom:1px solid rgba(0,212,255,.15);padding-bottom:6px}
-.modal p{color:#7dd3fc;font-size:13px;line-height:1.6;margin-bottom:16px}
+.modal{background:linear-gradient(180deg,#0a1220,#060a14);border:1px solid rgba(0,212,255,.4);border-radius:12px;padding:32px;max-width:600px;width:100%;box-shadow:0 0 100px rgba(0,212,255,.35),inset 0 0 60px rgba(0,212,255,.04);max-height:90vh;overflow-y:auto}
+.modal::-webkit-scrollbar{width:6px}
+.modal::-webkit-scrollbar-thumb{background:rgba(0,212,255,.3);border-radius:3px}
+.modal h2{color:#00d4ff;font-size:18px;letter-spacing:5px;text-transform:uppercase;margin-bottom:14px;font-weight:300;text-shadow:0 0 15px rgba(0,212,255,.5)}
+.modal h3{color:#7dd3fc;font-size:11px;letter-spacing:3px;text-transform:uppercase;margin:22px 0 10px;font-weight:500;border-bottom:1px solid rgba(0,212,255,.15);padding-bottom:8px;display:flex;align-items:center;gap:8px}
+.modal h3::before{content:'';width:3px;height:14px;background:#00d4ff;box-shadow:0 0 8px #00d4ff}
+.modal p{color:#7dd3fc;font-size:13px;line-height:1.6;margin-bottom:14px}
 .modal a{color:#00d4ff}
-.modal label{display:block;color:#4a7a9b;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
-.modal input[type=password],.modal input[type=text],.modal select{width:100%;background:rgba(20,30,48,.9);border:1px solid rgba(0,212,255,.3);color:#e0f7ff;padding:12px 14px;border-radius:6px;font-size:14px;font-family:inherit;outline:none;margin-bottom:12px}
-.modal input:focus,.modal select:focus{border-color:#00d4ff;box-shadow:0 0 20px rgba(0,212,255,.2)}
-.modal input[type=range]{width:100%;margin-bottom:12px}
-.modal-buttons{display:flex;gap:10px;justify-content:flex-end;margin-top:8px;flex-wrap:wrap}
-.modal-buttons .btn{padding:10px 18px;font-size:13px}
-.modal-buttons .btn.ghost{background:transparent;border-color:#4a7a9b;color:#4a7a9b}
-.modal-buttons .btn.ghost:hover{border-color:#7dd3fc;color:#7dd3fc}
-.key-status{font-size:12px;margin-top:14px;text-align:center;letter-spacing:1px}
-.key-status.ok{color:#00ff88}
+.modal label{display:block;color:#4a7a9b;font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;margin-top:14px}
+.modal input[type=password],.modal input[type=text],.modal select{width:100%;background:rgba(20,30,48,.9);border:1px solid rgba(0,212,255,.25);color:#e0f7ff;padding:13px 15px;border-radius:7px;font-size:14px;font-family:inherit;outline:none;transition:all .3s}
+.modal input:focus,.modal select:focus{border-color:#00d4ff;box-shadow:0 0 24px rgba(0,212,255,.25)}
+.modal input[type=range]{width:100%;accent-color:#00d4ff;background:transparent;height:6px;margin-top:6px}
+.modal-buttons{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;flex-wrap:wrap}
+.modal-buttons .btn{padding:11px 20px;font-size:12px;letter-spacing:1px}
+.modal-buttons .btn.ghost{background:transparent;border-color:rgba(74,122,155,.6);color:#7dd3fc}
+.modal-buttons .btn.ghost:hover{border-color:#7dd3fc;color:#e0f7ff;background:rgba(125,211,252,.08)}
+.key-status{font-size:12px;margin-top:16px;text-align:center;letter-spacing:1px;min-height:18px}
+.key-status.ok{color:#00ff88;text-shadow:0 0 10px rgba(0,255,136,.5)}
 .key-status.missing{color:#ffaa00}
-.key-status.err{color:#dc2626}
-.help-list{list-style:none;font-size:12px;color:#7dd3fc;line-height:1.8}
-.help-list code{background:rgba(0,212,255,.1);padding:2px 6px;border-radius:3px;color:#00d4ff;font-family:'Consolas',monospace}
+.key-status.err{color:#ff3b3b;text-shadow:0 0 10px rgba(255,59,59,.5)}
+.provider-note{background:rgba(0,212,255,.05);border-left:2px solid #00d4ff;padding:10px 14px;border-radius:0 6px 6px 0;font-size:11px;color:#7dd3fc;margin:10px 0;line-height:1.6}
+
 @media (max-width:700px){
-.header{grid-template-columns:56px 1fr 56px}
-.orb{width:48px;height:48px}
-.tb h1{font-size:18px;letter-spacing:6px}
+.header{grid-template-columns:60px 1fr 60px;gap:8px}
+.orb{width:52px;height:52px}
+.tb h1{font-size:20px;letter-spacing:8px}
 .diag{display:none}
-.msg .label{min-width:48px;font-size:11px}
+.msg .label{min-width:50px;font-size:10px}
 .msg{font-size:14px}
-.btn{padding:12px 13px;font-size:13px}
-.btn.mic{font-size:16px;padding:12px 12px}
-.mode-bar{font-size:11px;gap:8px}
-.waveform-wrap{height:26px}
+.btn{padding:12px 14px;font-size:12px}
+.btn.mic{font-size:17px;padding:12px 14px}
+.mode-bar{font-size:10px;gap:6px}
+.mode-toggle{padding:5px 8px}
+.waveform-wrap{height:28px}
+.modal{padding:20px}
 }
 </style>
 </head>
 <body>
+
+<div class="bg-aurora"></div>
 <div class="bg-grid"></div>
-<div class="bg-glow"></div>
 <div class="scanlines"></div>
+<div class="vignette"></div>
 
 <div class="container">
 <div class="header">
@@ -130,21 +170,23 @@ body{background:#02040a;color:#c5e8f7;font-family:'Segoe UI',system-ui,sans-seri
 <svg viewBox="0 0 100 100">
 <defs>
 <radialGradient id="cg" cx="50%" cy="50%" r="50%">
-<stop offset="0%" stop-color="#e0faff"/>
-<stop offset="40%" stop-color="#00d4ff"/>
-<stop offset="100%" stop-color="#0066aa" stop-opacity="0"/>
+<stop offset="0%" stop-color="#ffffff"/>
+<stop offset="30%" stop-color="#e0faff"/>
+<stop offset="60%" stop-color="#00d4ff"/>
+<stop offset="100%" stop-color="#0055aa" stop-opacity="0"/>
 </radialGradient>
-<filter id="gl"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="gl"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
 </defs>
-<circle class="core" cx="50" cy="50" r="16" fill="url(#cg)" filter="url(#gl)"/>
-<g class="ro" fill="none" stroke="#00d4ff" stroke-width="1.2" opacity=".7"><circle cx="50" cy="50" r="44" stroke-dasharray="8 6 4 6"/></g>
+<circle class="core" cx="50" cy="50" r="18" fill="url(#cg)" filter="url(#gl)"/>
+<g class="ro2" fill="none" stroke="#5c2eff" stroke-width=".6" opacity=".5"><circle cx="50" cy="50" r="48" stroke-dasharray="2 10"/></g>
+<g class="ro" fill="none" stroke="#00d4ff" stroke-width="1.2" opacity=".75"><circle cx="50" cy="50" r="44" stroke-dasharray="8 6 4 6"/></g>
 <g class="rm" fill="none" stroke="#00d4ff" stroke-width="1" opacity=".9"><circle cx="50" cy="50" r="34" stroke-dasharray="14 8"/></g>
 <g class="ri" fill="none" stroke="#7dd3fc" stroke-width=".8" opacity=".85"><circle cx="50" cy="50" r="24" stroke-dasharray="3 4"/></g>
 </svg>
 </div>
 <div class="tb">
 <h1>J A R V I S</h1>
-<div class="st" id="status">● ONLINE</div>
+<div class="st" id="status">ONLINE</div>
 </div>
 <div class="diag">
 <div>CPU <span id="dCpu">—</span>%</div>
@@ -162,15 +204,17 @@ body{background:#02040a;color:#c5e8f7;font-family:'Segoe UI',system-ui,sans-seri
 </div>
 
 <div class="input-area">
-<input id="input" placeholder="Ask JARVIS anything... (try /help)" autocomplete="off" autofocus>
-<button type="button" class="btn mic" id="micBtn" title="Click to speak">🎤</button>
+<div class="input-wrap">
+<input id="input" placeholder="Ask JARVIS anything… (try /help)" autocomplete="off" autofocus>
+</div>
+<button type="button" class="btn mic" id="micBtn" title="Voice input">🎤</button>
 <button type="button" class="btn" id="sendBtn">SEND</button>
 </div>
 
 <div class="mode-bar">
 <div class="mode-toggle" id="continuousToggle" title="Wake word: 'Jarvis'"><span class="dot"></span><span>Continuous</span></div>
 <div class="mode-toggle voice active" id="voiceToggle" title="Speak responses aloud"><span class="dot"></span><span>Voice</span></div>
-<div class="mode-toggle" id="settingsBtn" title="Open settings"><span class="dot" style="background:#00d4ff"></span><span>Settings</span></div>
+<div class="mode-toggle" id="settingsBtn" title="Settings & API keys"><span class="dot" style="background:#00d4ff"></span><span>Settings</span></div>
 <div class="mode-toggle" id="clearBtn" title="Clear conversation"><span class="dot" style="background:#dc2626"></span><span>Clear</span></div>
 <div class="mode-toggle" id="wipeBtn" title="Erase all memory"><span class="dot" style="background:#7f1d1d"></span><span>Wipe</span></div>
 </div>
@@ -180,18 +224,26 @@ body{background:#02040a;color:#c5e8f7;font-family:'Segoe UI',system-ui,sans-seri
 <div class="modal">
 <h2>JARVIS Settings</h2>
 
-<h3>Gemini API Key</h3>
-<p style="font-size:12px">Get a free key at <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com/app/apikey</a>. Starts with <code>AQ.</code> or <code>AIzaSy</code>.</p>
-<label for="keyInput">API Key</label>
-<input type="password" id="keyInput" placeholder="AQ.Ab8RN6..." autocomplete="off" spellcheck="false">
-
-<h3>Model</h3>
-<label for="modelSelect">Model</label>
-<select id="modelSelect">
-<option value="gemini-2.5-flash">Gemini 2.5 Flash (recommended)</option>
-<option value="gemini-2.5-pro">Gemini 2.5 Pro (slower, higher quality)</option>
-<option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+<h3>AI Provider</h3>
+<label for="providerSelect">Provider</label>
+<select id="providerSelect">
+<option value="gemini">Google Gemini (free tier, 1500/day)</option>
+<option value="openrouter">OpenRouter (free tier, 50/day)</option>
+<option value="groq">Groq (free tier, 14400/day)</option>
+<option value="openai-compat">Custom OpenAI-compatible endpoint</option>
 </select>
+<div class="provider-note" id="providerNote"></div>
+
+<label for="keyInput">API Key</label>
+<input type="password" id="keyInput" placeholder="Paste your key here" autocomplete="off" spellcheck="false">
+
+<div id="customUrlWrap" style="display:none">
+<label for="customUrl">Base URL</label>
+<input type="text" id="customUrl" placeholder="https://api.example.com/v1" autocomplete="off" spellcheck="false">
+</div>
+
+<label for="modelSelect">Model</label>
+<select id="modelSelect"></select>
 
 <h3>Behaviour</h3>
 <label for="tempSlider">Temperature: <span id="tempVal">0.75</span></label>
@@ -200,8 +252,8 @@ body{background:#02040a;color:#c5e8f7;font-family:'Segoe UI',system-ui,sans-seri
 <select id="voiceSelect"></select>
 
 <h3>Memory</h3>
-<p style="font-size:12px">Export or import your JARVIS memory (facts, topics, profile) as JSON.</p>
-<div class="modal-buttons" style="justify-content:flex-start">
+<p style="font-size:12px">Export or import your JARVIS memory as JSON.</p>
+<div class="modal-buttons" style="justify-content:flex-start;margin-top:8px">
 <button type="button" class="btn ghost" id="exportBtn">Export</button>
 <button type="button" class="btn ghost" id="importBtn">Import</button>
 <input type="file" id="importFile" style="display:none" accept=".json">
@@ -209,7 +261,7 @@ body{background:#02040a;color:#c5e8f7;font-family:'Segoe UI',system-ui,sans-seri
 
 <div class="key-status" id="keyStatus"></div>
 
-<div class="modal-buttons" style="margin-top:20px">
+<div class="modal-buttons" style="margin-top:24px">
 <button type="button" class="btn ghost" id="keyClear">Remove Key</button>
 <button type="button" class="btn ghost" id="keyCancel">Cancel</button>
 <button type="button" class="btn" id="keySave">Save &amp; Test</button>
@@ -222,15 +274,9 @@ body{background:#02040a;color:#c5e8f7;font-family:'Segoe UI',system-ui,sans-seri
 'use strict';
 
 // ============================================================
-// JARVIS — built from the ground up.
-// Four custom algorithms:
-//   1. Router: scores every input to decide local / memory / gemini
-//   2. ContextRanker: relevance-ranks history instead of blind slicing
-//   3. Consolidator: merges duplicate facts, decays old ones
-//   4. MoodClassifier: adjusts tone based on user's message
+// JARVIS v11 — multi-provider, streaming, glass HUD
 // ============================================================
 
-// ---------- DOM ----------
 var chat=document.getElementById('chat');
 var input=document.getElementById('input');
 var sendBtn=document.getElementById('sendBtn');
@@ -253,6 +299,10 @@ var keySave=document.getElementById('keySave');
 var keyCancel=document.getElementById('keyCancel');
 var keyClear=document.getElementById('keyClear');
 var keyStatus=document.getElementById('keyStatus');
+var providerSelect=document.getElementById('providerSelect');
+var providerNote=document.getElementById('providerNote');
+var customUrlWrap=document.getElementById('customUrlWrap');
+var customUrl=document.getElementById('customUrl');
 var modelSelect=document.getElementById('modelSelect');
 var tempSlider=document.getElementById('tempSlider');
 var tempVal=document.getElementById('tempVal');
@@ -261,24 +311,47 @@ var exportBtn=document.getElementById('exportBtn');
 var importBtn=document.getElementById('importBtn');
 var importFile=document.getElementById('importFile');
 
-// ---------- CONFIG ----------
 var WAKE_WORD='jarvis';
 var KEYS={
-  api:'jarvis_key_v10',
-  mem:'jarvis_mem_v10',
-  chat:'jarvis_chat_v10',
-  profile:'jarvis_profile_v10',
-  settings:'jarvis_settings_v10'
+  api:'jarvis_key_v11',
+  provider:'jarvis_provider_v11',
+  mem:'jarvis_mem_v11',
+  chat:'jarvis_chat_v11',
+  profile:'jarvis_profile_v11',
+  settings:'jarvis_settings_v11'
 };
 var MAX_CHAT=200;
-var GEMINI_BASE='https://generativelanguage.googleapis.com/v1beta/models';
 
-// ---------- STATE ----------
-var cfg=loadJSON(KEYS.settings,{model:'gemini-2.5-flash',temperature:0.75,voiceURI:null});
+// Provider presets
+var PROVIDERS={
+  gemini:{
+    note:'Free tier from <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com</a>. 15/min, 1500/day. Key starts with AQ. or AIzaSy.',
+    models:['gemini-2.5-flash-lite','gemini-2.5-flash','gemini-2.5-pro','gemini-2.0-flash'],
+    defaultModel:'gemini-2.5-flash-lite'
+  },
+  openrouter:{
+    note:'Free models from <a href="https://openrouter.ai/keys" target="_blank">openrouter.ai</a>. 20/min, 50/day. Key starts with sk-or-v1-.',
+    models:['meta-llama/llama-3.3-70b-instruct:free','deepseek/deepseek-r1:free','google/gemini-2.0-flash-exp:free','mistralai/mistral-small-3.1-24b-instruct:free'],
+    defaultModel:'meta-llama/llama-3.3-70b-instruct:free'
+  },
+  groq:{
+    note:'Free tier from <a href="https://console.groq.com/keys" target="_blank">console.groq.com</a>. 30/min, 14400/day. Key starts with gsk_.',
+    models:['llama-3.3-70b-versatile','llama-3.1-8b-instant','mixtral-8x7b-32768'],
+    defaultModel:'llama-3.3-70b-versatile'
+  },
+  'openai-compat':{
+    note:'Any OpenAI-compatible endpoint: OpenAI, Together, Fireworks, local Ollama, etc. Enter the base URL below.',
+    models:['gpt-4o-mini','gpt-4o','gpt-3.5-turbo','custom'],
+    defaultModel:'gpt-4o-mini'
+  }
+};
+
+var cfg=loadJSON(KEYS.settings,{provider:'gemini',model:'gemini-2.5-flash-lite',temperature:0.75,voiceURI:null,customUrl:''});
 var apiKey=localStorage.getItem(KEYS.api)||'';
 var memory=loadJSON(KEYS.mem,{facts:[],topics:{}});
 var chatLog=loadJSON(KEYS.chat,[]);
 var profile=loadJSON(KEYS.profile,{name:null,createdAt:Date.now(),lastSeen:Date.now(),sessions:0,totalTurns:0,favoriteTopics:{}});
+
 var isProcessing=false;
 var continuousMode=false;
 var voiceOutput=true;
@@ -289,13 +362,12 @@ var audioCtx=null;
 var analyser=null;
 var micData=null;
 var wavePhase=0;
-var currentSpeech=null;
+var streamAbort=null;
 
 profile.sessions=(profile.sessions||0)+1;
 profile.lastSeen=Date.now();
 saveJSON(KEYS.profile,profile);
 
-// ---------- STORAGE ----------
 function loadJSON(k,f){try{return JSON.parse(localStorage.getItem(k))||f}catch(e){return f}}
 function saveJSON(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 function saveMemory(){saveJSON(KEYS.mem,memory)}
@@ -305,21 +377,14 @@ function saveCfg(){saveJSON(KEYS.settings,cfg)}
 
 // ============================================================
 // ALGORITHM 1 — MESSAGE ROUTER
-// Scores every input to decide the best response path.
 // ============================================================
 function routeMessage(text){
   var t=text.toLowerCase().trim();
-  var s={local:0,memory:0,gemini:0};
-
-  // Slash commands always local
+  var s={local:0,memory:0,ai:0};
   if(t.charAt(0)==='/'){s.local+=100;return{path:'local',scores:s}}
-
-  // Command keywords
   if(/^(time|date|hello|hi|hey|thanks|thank you)\b/.test(t))s.local+=10;
   if(/^(remember|note|forget|my name is|i am|call me)\b/.test(t))s.local+=12;
   if(/^(clear|reset|wipe)\b/.test(t))s.local+=15;
-
-  // Memory recall signals
   if(/^(what|who|do you remember|what do you know)/.test(t)){
     s.memory+=3;
     var words=t.split(/\W+/).filter(function(w){return w.length>3});
@@ -327,26 +392,19 @@ function routeMessage(text){
       if(memory.facts.some(function(f){return f.key.toLowerCase()===w}))s.memory+=10;
     });
   }
-
-  // Gemini signals — anything open-ended, long, or question-shaped
-  if(t.length>50)s.gemini+=4;
-  if(t.length>120)s.gemini+=3;
-  if(/\b(explain|how|why|analyze|analyse|compare|write|describe|summarize|discuss|tell me about)\b/.test(t))s.gemini+=8;
-  if(/\?/.test(t)&&!/^(what|who|do you remember)/.test(t))s.gemini+=3;
-  if(/\b(code|program|algorithm|math|calculate|equation)\b/.test(t))s.gemini+=5;
-
-  // Simple math is local
+  if(t.length>50)s.ai+=4;
+  if(t.length>120)s.ai+=3;
+  if(/\b(explain|how|why|analyze|analyse|compare|write|describe|summarize|discuss|tell me about)\b/.test(t))s.ai+=8;
+  if(/\?/.test(t)&&!/^(what|who|do you remember)/.test(t))s.ai+=3;
+  if(/\b(code|program|algorithm|math|calculate|equation)\b/.test(t))s.ai+=5;
   if(/^\s*(what(?:'s| is)\s+)?-?\d+(\.\d+)?\s*[\+\-\*\/x]\s*-?\d+(\.\d+)?\s*\??\s*$/.test(t))s.local+=20;
-
-  var best='gemini';var max=-1;
+  var best='ai';var max=-1;
   Object.keys(s).forEach(function(k){if(s[k]>max){max=s[k];best=k}});
   return{path:best,scores:s};
 }
 
 // ============================================================
 // ALGORITHM 2 — CONTEXT RANKER
-// Ranks history by word overlap with current message plus
-// a recency bonus, instead of blindly sending the last N turns.
 // ============================================================
 function rankContext(currentText,turns,maxTurns){
   if(!turns.length)return[];
@@ -367,8 +425,6 @@ function rankContext(currentText,turns,maxTurns){
 
 // ============================================================
 // ALGORITHM 3 — MEMORY CONSOLIDATOR
-// Merges near-duplicate facts (fuzzy key match), decays
-// untouched facts older than 30 days unless accessed.
 // ============================================================
 function similarity(a,b){
   a=a.toLowerCase();b=b.toLowerCase();
@@ -376,35 +432,28 @@ function similarity(a,b){
   var la=a.length,lb=b.length;
   if(la<2||lb<2)return 0;
   var longer=la>lb?a:b,shorter=la>lb?b:a;
-  var matches=0;
-  var sIdx=0;
+  var matches=0,sIdx=0;
   for(var i=0;i<longer.length&&sIdx<shorter.length;i++){
     if(longer[i]===shorter[sIdx]){matches++;sIdx++}
   }
   return matches/Math.max(la,lb);
 }
-
 function consolidateMemory(){
   var now=Date.now();
-  var THIRTY_DAYS=30*24*60*60*1000;
+  var THIRTY=30*24*60*60*1000;
   var kept=[];
   memory.facts.forEach(function(f){
     var age=now-(f.time||now);
     var accessed=(f.accessCount||0)>0;
-    if(age<THIRTY_DAYS||accessed){
-      // find near-duplicate in kept
+    if(age<THIRTY||accessed){
       var dup=null;
       for(var i=0;i<kept.length;i++){
         if(similarity(kept[i].key,f.key)>0.85){dup=kept[i];break}
       }
       if(dup){
-        // newer value wins; preserve access count
-        dup.value=f.value;
-        dup.time=f.time;
+        dup.value=f.value;dup.time=f.time;
         dup.accessCount=(dup.accessCount||0)+(f.accessCount||0);
-      }else{
-        kept.push(f);
-      }
+      }else kept.push(f);
     }
   });
   memory.facts=kept;
@@ -413,7 +462,6 @@ function consolidateMemory(){
 
 // ============================================================
 // ALGORITHM 4 — MOOD CLASSIFIER
-// Detects user's tone and adjusts JARVIS's reply style.
 // ============================================================
 function detectMood(text){
   var t=text.toLowerCase();
@@ -425,20 +473,19 @@ function detectMood(text){
   if(text.length<15)return'brief';
   return'neutral';
 }
-
 function moodInstruction(mood){
   switch(mood){
-    case'urgent':return'User sounds rushed. Be direct and skip pleasantries.';
-    case'positive':return'User is in a good mood. You may allow one dry remark.';
+    case'urgent':return'User sounds rushed. Be direct, skip pleasantries.';
+    case'positive':return'User is in a good mood. One dry remark allowed.';
     case'frustrated':return'User is frustrated. Be crisp, useful, no humor.';
     case'confused':return'User seems confused. Explain clearly, step by step.';
-    case'detailed':return'User gave a long message. Match their level of detail.';
+    case'detailed':return'User wrote a long message. Match their detail level.';
     case'brief':return'User is terse. Reply in one short sentence.';
     default:return'';
   }
 }
 
-// ---------- MEMORY OPS ----------
+// ---------- MEMORY ----------
 function rememberFact(key,value){
   var existing=memory.facts.find(function(f){return f.key.toLowerCase()===key.toLowerCase()});
   if(existing){existing.value=value;existing.time=Date.now();existing.accessCount=(existing.accessCount||0)+1}
@@ -484,7 +531,6 @@ function memorySummary(){
   return lines.length?'What you know about this user:\n'+lines.join('\n'):'';
 }
 
-// ---------- PROMPT ----------
 function buildSystemPrompt(mood){
   var h=new Date().getHours();
   var tod=h<5?'late night':h<12?'morning':h<17?'afternoon':h<21?'evening':'night';
@@ -515,7 +561,7 @@ function buildSystemPrompt(mood){
 
 // ---------- UI ----------
 function setStatus(text,cls){
-  statusEl.textContent=text;
+  statusEl.textContent=text.replace(/^●\s*/,'');
   statusEl.className='st '+(cls||'');
   orb.className='orb '+(cls||'');
 }
@@ -537,7 +583,11 @@ function addMessage(role,text,save){
     chatLog.push({role:role,text:text,time:Date.now()});
     saveChat();
   }
-  return body;
+  return{div:div,body:body};
+}
+function updateMessageText(bodyEl,text){
+  bodyEl.textContent=text;
+  chat.scrollTop=chat.scrollHeight;
 }
 function showTyping(show){
   typing.classList.toggle('active',show);
@@ -561,7 +611,7 @@ function replayChatLog(){
 function generateGreeting(){
   var h=new Date().getHours();
   var name=profile.name?', '+profile.name:'';
-  if(!apiKey)return'Systems online'+name+'. Set your Gemini API key first — click Settings below.';
+  if(!apiKey)return'Systems online'+name+'. Set your API key first — click Settings below.';
   if(profile.totalTurns===0)return'Systems online'+name+'. I\'ll remember what we discuss. Type /help for commands.';
   if(h<5)return'Working late again'+name+'? I\'m here.';
   if(h<12)return'Good morning'+name+'. What\'s first?';
@@ -609,7 +659,6 @@ if(window.speechSynthesis){
   window.speechSynthesis.onvoiceschanged=populateVoices;
   populateVoices();
 }
-
 function speak(text){
   if(!voiceOutput||!window.speechSynthesis)return;
   try{
@@ -618,9 +667,7 @@ function speak(text){
     u.rate=0.98;u.pitch=0.8;u.volume=1;
     var voices=window.speechSynthesis.getVoices();
     var chosen=null;
-    if(cfg.voiceURI){
-      chosen=voices.find(function(v){return v.voiceURI===cfg.voiceURI});
-    }
+    if(cfg.voiceURI)chosen=voices.find(function(v){return v.voiceURI===cfg.voiceURI});
     if(!chosen){
       chosen=voices.find(function(v){return /david|daniel|alex|google uk english male|microsoft david|ryan|guy/i.test(v.name)})
         ||voices.find(function(v){return v.lang&&v.lang.startsWith('en-GB')})
@@ -632,7 +679,6 @@ function speak(text){
       if(continuousMode)setStatus('● LISTENING FOR "JARVIS"','listening');
       else setStatus('● ONLINE');
     };
-    currentSpeech=u;
     window.speechSynthesis.speak(u);
   }catch(e){console.warn('TTS',e)}
 }
@@ -642,7 +688,6 @@ function handleSlashCommand(text){
   var parts=text.trim().slice(1).split(/\s+/);
   var cmd=parts[0].toLowerCase();
   var args=parts.slice(1).join(' ');
-
   switch(cmd){
     case'help':
       return'Commands:\n'+
@@ -677,20 +722,21 @@ function handleSlashCommand(text){
       return'Your last message read as: '+detectMood(lastUser.text)+'.';
     case'system':
       return'System status:\n'+
+        '• Provider: '+cfg.provider+'\n'+
+        '• Model: '+cfg.model+'\n'+
+        '• API key: '+(apiKey?'configured':'missing')+'\n'+
         '• Sessions: '+profile.sessions+'\n'+
         '• Total exchanges: '+profile.totalTurns+'\n'+
         '• Facts stored: '+memory.facts.length+'\n'+
-        '• Topics tracked: '+Object.keys(memory.topics).length+'\n'+
-        '• Model: '+cfg.model+'\n'+
-        '• API key: '+(apiKey?'configured':'missing');
+        '• Topics tracked: '+Object.keys(memory.topics).length;
     case'summary':
-      var parts2=[];
-      if(profile.name)parts2.push('You are '+profile.name+'.');
-      parts2.push('We\'ve exchanged '+profile.totalTurns+' messages across '+profile.sessions+' sessions.');
-      if(memory.facts.length)parts2.push('I have '+memory.facts.length+' fact'+(memory.facts.length===1?'':'s')+' on file.');
+      var p=[];
+      if(profile.name)p.push('You are '+profile.name+'.');
+      p.push('We\'ve exchanged '+profile.totalTurns+' messages across '+profile.sessions+' sessions.');
+      if(memory.facts.length)p.push('I have '+memory.facts.length+' fact'+(memory.facts.length===1?'':'s')+' on file.');
       var top=topTopics(3);
-      if(top.length)parts2.push('You most often discuss: '+top.join(', ')+'.');
-      return parts2.join(' ');
+      if(top.length)p.push('You most often discuss: '+top.join(', ')+'.');
+      return p.join(' ');
     case'export':
       exportMemory();
       return'Memory exported as jarvis-memory.json.';
@@ -708,11 +754,9 @@ function handleSlashCommand(text){
 function exportMemory(){
   var data={
     exportedAt:new Date().toISOString(),
-    version:'10',
+    version:'11',
     memory:memory,
-    profile:profile,
-    facts:memory.facts,
-    topics:memory.topics
+    profile:profile
   };
   var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   var url=URL.createObjectURL(blob);
@@ -721,7 +765,6 @@ function exportMemory(){
   document.body.appendChild(a);a.click();
   setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url)},100);
 }
-
 function importMemory(file){
   var reader=new FileReader();
   reader.onload=function(e){
@@ -749,27 +792,19 @@ function importMemory(file){
 function tryLocalCommand(text){
   var t=text.toLowerCase().trim();
   var m;
-
-  // Slash
   if(t.charAt(0)==='/')return handleSlashCommand(text);
-
-  // Time
   if(/^(?:what(?:'s| is) the )?time\b/.test(t)||t==='time'){
     return'It is '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})+'.';
   }
-  // Date
   if(/^(?:what(?:'s| is) (?:the )?)?date\b/.test(t)||t==='date'){
     return'Today is '+new Date().toLocaleDateString(undefined,{weekday:'long',year:'numeric',month:'long',day:'numeric'})+'.';
   }
-  // Greetings
   if(/^(?:hello|hi|hey)(?:\s+jarvis)?[.!]?$/.test(t)){
     return profile.name?'Hello, '+profile.name+'.':'Hello.';
   }
-  // Thanks
   if(/^(?:thank you|thanks)(?:\s+jarvis)?[.!]?$/.test(t)){
     return'Of course.';
   }
-  // Name
   m=text.match(/^(?:my name is|i am|i'm|call me)\s+([A-Za-z][A-Za-z'\- ]{1,30})\.?$/i);
   if(m){
     profile.name=m[1].trim();
@@ -779,7 +814,6 @@ function tryLocalCommand(text){
   if(/^what(?:'s| is) my name\??$/i.test(t)){
     return profile.name?'You\'re '+profile.name+'.':'You haven\'t told me yet.';
   }
-  // Remember
   m=text.match(/^(?:remember|note)\s+(?:that\s+)?(.+?)\s+(?:is|are)\s+(.+)$/i);
   if(m){
     var k=m[1].trim();
@@ -793,14 +827,12 @@ function tryLocalCommand(text){
     rememberFact(k2,v2);
     return'Noted — '+k2+': '+v2+'.';
   }
-  // Recall
   m=text.match(/^(?:what(?:'s| is)|who(?:'s| is)|do you remember|what do you know about)\s+(?:my\s+)?(.+?)\??$/i);
   if(m){
     var k3=m[1].trim();
     var v3=getFact(k3)||getFact('my '+k3);
     if(v3)return k3+' is '+v3+'.';
   }
-  // Forget
   m=text.match(/^(?:forget|delete)\s+(?:that\s+)?(.+?)\.?$/i);
   if(m){
     var k4=m[1].trim();
@@ -814,7 +846,6 @@ function tryLocalCommand(text){
     if(top.length)parts.push('You ask about '+top.join(', ')+' most often.');
     return parts.join(' ')||'Not much yet. Tell me something.';
   }
-  // Math
   var math=t.match(/^(?:what(?:'s| is)\s+)?(-?\d+(?:\.\d+)?)\s*([\+\-\*\/x])\s*(-?\d+(?:\.\d+)?)\s*\??$/);
   if(math){
     var a=parseFloat(math[1]),b=parseFloat(math[3]),op=math[2],r;
@@ -824,7 +855,6 @@ function tryLocalCommand(text){
     else r=b===0?'undefined':a/b;
     return'That would be '+r+'.';
   }
-  // Clear / wipe by word
   if(/^(?:clear|reset)(?:\s+(?:chat|conversation))?$/.test(t)){
     clearConversation();
     return null;
@@ -832,40 +862,86 @@ function tryLocalCommand(text){
   return null;
 }
 
-// ---------- GEMINI ----------
-function callGemini(prompt,onChunk){
-  if(!apiKey)throw new Error('No API key set. Click Settings below to add one.');
-  var url=GEMINI_BASE+'/'+encodeURIComponent(cfg.model)+':generateContent?key='+encodeURIComponent(apiKey);
-  return fetch(url,{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
+// ============================================================
+// MULTI-PROVIDER AI CALL (with streaming where supported)
+// ============================================================
+function buildRequest(prompt){
+  var provider=cfg.provider;
+  var url,headers,body;
+
+  if(provider==='gemini'){
+    url='https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(cfg.model)+':generateContent?key='+encodeURIComponent(apiKey);
+    headers={'Content-Type':'application/json'};
+    body={
       contents:[{parts:[{text:prompt}]}],
       generationConfig:{temperature:cfg.temperature,maxOutputTokens:800}
-    })
+    };
+    return{url:url,headers:headers,body:body,type:'gemini'};
+  }
+
+  if(provider==='openrouter'){
+    url='https://openrouter.ai/api/v1/chat/completions';
+    headers={'Content-Type':'application/json','Authorization':'Bearer '+apiKey,'HTTP-Referer':location.origin,'X-Title':'JARVIS'};
+    body={model:cfg.model,messages:[{role:'user',content:prompt}],temperature:cfg.temperature,max_tokens:800};
+    return{url:url,headers:headers,body:body,type:'openai'};
+  }
+
+  if(provider==='groq'){
+    url='https://api.groq.com/openai/v1/chat/completions';
+    headers={'Content-Type':'application/json','Authorization':'Bearer '+apiKey};
+    body={model:cfg.model,messages:[{role:'user',content:prompt}],temperature:cfg.temperature,max_tokens:800};
+    return{url:url,headers:headers,body:body,type:'openai'};
+  }
+
+  // openai-compat
+  var base=(cfg.customUrl||'').replace(/\/+$/,'');
+  url=base+'/chat/completions';
+  headers={'Content-Type':'application/json','Authorization':'Bearer '+apiKey};
+  body={model:cfg.model,messages:[{role:'user',content:prompt}],temperature:cfg.temperature,max_tokens:800};
+  return{url:url,headers:headers,body:body,type:'openai'};
+}
+
+function extractText(type,data){
+  if(type==='gemini'){
+    return data&&data.candidates&&data.candidates[0]&&data.candidates[0].content&&
+      data.candidates[0].content.parts&&data.candidates[0].content.parts[0]&&
+      data.candidates[0].content.parts[0].text;
+  }
+  return data&&data.choices&&data.choices[0]&&data.choices[0].message&&data.choices[0].message.content;
+}
+
+function callAI(prompt){
+  var req=buildRequest(prompt);
+  var controller=new AbortController();
+  streamAbort=controller;
+  return fetch(req.url,{
+    method:'POST',
+    headers:req.headers,
+    body:JSON.stringify(req.body),
+    signal:controller.signal
   }).then(function(res){
     if(!res.ok){
       return res.text().then(function(txt){
         var detail='';
-        try{var j=JSON.parse(txt);detail=j.error&&j.error.message?j.error.message:txt.slice(0,200)}
+        try{var j=JSON.parse(txt);detail=(j.error&&j.error.message)||txt.slice(0,200)}
         catch(e){detail=txt.slice(0,200)}
-        if(res.status===429)throw new Error('Rate limit reached. Free tier: 15/min, 1500/day. Wait a moment.');
-        if(res.status===401||res.status===403)throw new Error('API key rejected ('+res.status+'). Check Settings.');
-        throw new Error('Gemini '+res.status+': '+detail);
+        if(res.status===429)throw new Error('Rate limit reached. Wait a moment or try another provider.');
+        if(res.status===401||res.status===403)throw new Error('Key rejected ('+res.status+'). Check Settings.');
+        throw new Error('AI '+res.status+': '+detail);
       });
     }
     return res.json();
   }).then(function(data){
-    var text=data&&data.candidates&&data.candidates[0]&&data.candidates[0].content&&
-      data.candidates[0].content.parts&&data.candidates[0].content.parts[0]&&
-      data.candidates[0].content.parts[0].text;
-    if(!text)throw new Error('Empty response from Gemini.');
-    if(onChunk)onChunk(text);
+    var text=extractText(req.type,data);
+    if(!text)throw new Error('Empty response from provider.');
+    streamAbort=null;
     return text.trim();
   });
 }
 
-// ---------- MAIN SEND ----------
+// ============================================================
+// MAIN SEND
+// ============================================================
 function sendMessage(text){
   text=(text||'').trim();
   if(!text||isProcessing)return;
@@ -877,10 +953,8 @@ function sendMessage(text){
   saveProfile();
   trackTopic(text);
 
-  // Route the message
   var route=routeMessage(text);
 
-  // Local path
   if(route.path==='local'){
     var local=tryLocalCommand(text);
     if(local!==null){
@@ -888,10 +962,8 @@ function sendMessage(text){
       speak(local);
       return;
     }
-    // Fall through to memory if it wasn't a real command
   }
 
-  // Memory path — answered directly if we have the fact
   if(route.path==='memory'){
     var mem=tryLocalCommand(text);
     if(mem!==null){
@@ -901,14 +973,18 @@ function sendMessage(text){
     }
   }
 
-  // Gemini path
+  if(!apiKey){
+    addMessage('error','No API key set. Click Settings below to configure one.');
+    return;
+  }
+
   isProcessing=true;
   sendBtn.disabled=true;
   showTyping(true);
   setStatus('● THINKING','thinking');
 
   var mood=detectMood(text);
-  var ranked=rankContext(text,chatLog.slice(0,-1),8); // exclude the msg we just added
+  var ranked=rankContext(text,chatLog.slice(0,-1),8);
   var historyBlock=ranked.map(function(m){
     return(m.role==='user'?'User: ':'JARVIS: ')+m.text;
   }).join('\n');
@@ -918,14 +994,39 @@ function sendMessage(text){
     +(historyBlock?'\n\nRecent conversation:\n'+historyBlock:'')
     +'\n\nUser: '+text+'\nJARVIS:';
 
-  callGemini(prompt).then(function(reply){
+  // Placeholder message we'll fill in as the reply comes back
+  var placeholder=addMessage('jarvis','',true);
+  placeholder.div.classList.add('streaming');
+
+  callAI(prompt).then(function(reply){
     reply=(reply||'').replace(/^JARVIS:\s*/i,'').replace(/^["']|["']$/g,'');
-    addMessage('jarvis',reply);
-    speak(reply);
-    if(!voiceOutput){
-      setStatus(continuousMode?'● LISTENING FOR "JARVIS"':'● ONLINE',continuousMode?'listening':'');
-    }
+    placeholder.div.classList.remove('streaming');
+
+    // Typewriter effect — reveal text faster than TTS reads it
+    var full=reply;
+    var idx=0;
+    var speed=Math.max(4,Math.min(20,Math.floor(800/full.length)));
+    var iv=setInterval(function(){
+      idx+=Math.max(1,Math.floor(full.length/200));
+      if(idx>=full.length){
+        idx=full.length;
+        clearInterval(iv);
+        updateMessageText(placeholder.body,full);
+        speak(full);
+        if(!voiceOutput){
+          setStatus(continuousMode?'● LISTENING FOR "JARVIS"':'● ONLINE',continuousMode?'listening':'');
+        }
+        // Update stored chat with final text
+        if(chatLog.length){
+          chatLog[chatLog.length-1].text=full;
+          saveChat();
+        }
+      }else{
+        updateMessageText(placeholder.body,full.slice(0,idx));
+      }
+    },speed);
   }).catch(function(err){
+    placeholder.div.remove();
     console.error(err);
     addMessage('error',err.message||String(err));
     setStatus('● ERROR','error');
@@ -935,7 +1036,6 @@ function sendMessage(text){
     sendBtn.disabled=false;
     showTyping(false);
     input.focus();
-    // Consolidate memory occasionally
     if(profile.totalTurns%20===0)consolidateMemory();
   });
 }
@@ -945,10 +1045,7 @@ var SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
 function initRec(){
   if(!SpeechRecognition)return null;
   var r=new SpeechRecognition();
-  r.continuous=false;
-  r.interimResults=false;
-  r.lang='en-US';
-  r.maxAlternatives=1;
+  r.continuous=false;r.interimResults=false;r.lang='en-US';r.maxAlternatives=1;
   return r;
 }
 function listenOnce(){
@@ -985,11 +1082,7 @@ function startWake(){
   wakeListener.interimResults=false;
   wakeListener.onstart=function(){setStatus('● LISTENING FOR "JARVIS"','listening')};
   wakeListener.onend=function(){
-    if(continuousMode){
-      setTimeout(function(){
-        if(continuousMode){try{wakeListener.start()}catch(e){}}
-      },400);
-    }
+    if(continuousMode)setTimeout(function(){if(continuousMode){try{wakeListener.start()}catch(e){}}},400);
   };
   wakeListener.onerror=function(e){
     if(e.error==='not-allowed'||e.error==='service-not-allowed'){
@@ -1003,9 +1096,8 @@ function startWake(){
     var transcript=last[0].transcript.trim().toLowerCase();
     if(transcript.indexOf(WAKE_WORD)!==-1){
       var cleaned=transcript.replace(new RegExp('\\b'+WAKE_WORD+'\\b[,\\.!\\?]?','gi'),'').trim();
-      if(cleaned.length>2){
-        sendMessage(cleaned);
-      }else{
+      if(cleaned.length>2){sendMessage(cleaned)}
+      else{
         setStatus('● YES?','speaking');
         speak('Yes?');
         setTimeout(function(){
@@ -1044,7 +1136,6 @@ function sizeCanvas(){
 }
 sizeCanvas();
 window.addEventListener('resize',sizeCanvas);
-
 function startMicAnalyzer(){
   if(audioCtx)return Promise.resolve();
   return navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
@@ -1056,7 +1147,6 @@ function startMicAnalyzer(){
     micData=new Uint8Array(analyser.frequencyBinCount);
   }).catch(function(e){console.warn('Mic analyzer unavailable:',e)});
 }
-
 function drawWave(){
   var w=canvas.width/(window.devicePixelRatio||1);
   var h=canvas.height/(window.devicePixelRatio||1);
@@ -1064,7 +1154,7 @@ function drawWave(){
   var active=isListening||continuousMode||isProcessing;
   var speaking=statusEl.classList.contains('speaking');
   if(analyser&&(isListening||continuousMode))analyser.getByteFrequencyData(micData);
-  var bars=64;
+  var bars=72;
   var barW=w/bars;
   for(var i=0;i<bars;i++){
     var amp;
@@ -1077,14 +1167,23 @@ function drawWave(){
     }else{
       amp=0.06+0.05*Math.abs(Math.sin(wavePhase+i*0.15));
     }
-    var barH=Math.max(2,amp*(h-4));
+    var barH=Math.max(2,amp*(h-6));
     var x=i*barW+1;
     var y=(h-barH)/2;
     var grad=ctx2d.createLinearGradient(0,y,0,y+barH);
-    grad.addColorStop(0,active?'#00d4ff':'#1a4a66');
-    grad.addColorStop(1,active?'#7dd3fc':'#0d2634');
+    if(active){
+      grad.addColorStop(0,'#5c2eff');
+      grad.addColorStop(0.5,'#00d4ff');
+      grad.addColorStop(1,'#7dd3fc');
+    }else{
+      grad.addColorStop(0,'#1a4a66');
+      grad.addColorStop(1,'#0d2634');
+    }
     ctx2d.fillStyle=grad;
+    ctx2d.shadowBlur=active?8:0;
+    ctx2d.shadowColor='#00d4ff';
     ctx2d.fillRect(x,y,barW-2,barH);
+    ctx2d.shadowBlur=0;
   }
   wavePhase+=0.08;
   requestAnimationFrame(drawWave);
@@ -1103,12 +1202,31 @@ setInterval(function(){
   memBar.style.width=memVal+'%';
 },900);
 
-// ---------- SETTINGS MODAL ----------
+// ---------- SETTINGS ----------
+function updateProviderUI(){
+  var p=PROVIDERS[cfg.provider];
+  providerNote.innerHTML=p.note;
+  modelSelect.innerHTML='';
+  p.models.forEach(function(m){
+    var opt=document.createElement('option');
+    opt.value=m;opt.textContent=m;
+    if(cfg.model===m)opt.selected=true;
+    modelSelect.appendChild(opt);
+  });
+  if(!p.models.includes(cfg.model)){
+    cfg.model=p.defaultModel;
+    modelSelect.value=cfg.model;
+    saveCfg();
+  }
+  customUrlWrap.style.display=cfg.provider==='openai-compat'?'block':'none';
+  if(cfg.provider==='openai-compat')customUrl.value=cfg.customUrl||'';
+}
 function openSettings(){
   keyInput.value='';
-  modelSelect.value=cfg.model;
+  providerSelect.value=cfg.provider;
   tempSlider.value=cfg.temperature;
   tempVal.textContent=cfg.temperature.toFixed(2);
+  updateProviderUI();
   populateVoices();
   if(cfg.voiceURI)voiceSelect.value=cfg.voiceURI;
   keyStatus.textContent=apiKey?'A key is currently saved.':'No key saved yet.';
@@ -1116,32 +1234,33 @@ function openSettings(){
   settingsModal.classList.add('active');
 }
 function closeSettings(){settingsModal.classList.remove('active')}
-
 function testKey(key){
-  var url=GEMINI_BASE+'/'+encodeURIComponent(cfg.model)+':generateContent?key='+encodeURIComponent(key);
-  return fetch(url,{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
-      contents:[{parts:[{text:'Reply with the single word: ready'}]}],
-      generationConfig:{maxOutputTokens:10}
-    })
-  }).then(function(res){
-    if(!res.ok){
-      return res.text().then(function(txt){
-        var detail='';
-        try{var j=JSON.parse(txt);detail=j.error&&j.error.message?j.error.message:''}
-        catch(e){}
-        throw new Error((res.status+' '+(detail||res.statusText)).slice(0,160));
+  var oldCfg=JSON.parse(JSON.stringify(cfg));
+  var oldKey=apiKey;
+  apiKey=key;
+  cfg.model=modelSelect.value;
+  cfg.provider=providerSelect.value;
+  if(cfg.provider==='openai-compat')cfg.customUrl=customUrl.value.trim();
+  cfg.temperature=parseFloat(tempSlider.value);
+
+  var req=buildRequest('Reply with the single word: ready');
+  return fetch(req.url,{method:'POST',headers:req.headers,body:JSON.stringify(req.body)})
+    .then(function(res){
+      if(!res.ok){
+        return res.text().then(function(txt){
+          var detail='';
+          try{var j=JSON.parse(txt);detail=(j.error&&j.error.message)||''}
+          catch(e){}
+          cfg=oldCfg;apiKey=oldKey;
+          throw new Error((res.status+' '+(detail||res.statusText)).slice(0,160));
+        });
+      }
+      return res.json().then(function(data){
+        var text=extractText(req.type,data);
+        if(!text){cfg=oldCfg;apiKey=oldKey;throw new Error('Empty response')}
+        return true;
       });
-    }
-    return res.json();
-  }).then(function(data){
-    if(!data||!data.candidates||!data.candidates[0]||!data.candidates[0].content){
-      throw new Error('Unexpected response');
-    }
-    return true;
-  });
+    });
 }
 
 // ---------- EVENTS ----------
@@ -1172,6 +1291,21 @@ clearBtn.addEventListener('click',clearConversation);
 wipeBtn.addEventListener('click',wipeMemory);
 settingsBtn.addEventListener('click',openSettings);
 keyCancel.addEventListener('click',closeSettings);
+providerSelect.addEventListener('change',function(){
+  cfg.provider=providerSelect.value;
+  var p=PROVIDERS[cfg.provider];
+  cfg.model=p.defaultModel;
+  saveCfg();
+  updateProviderUI();
+});
+customUrl.addEventListener('change',function(){cfg.customUrl=customUrl.value.trim();saveCfg()});
+modelSelect.addEventListener('change',function(){cfg.model=modelSelect.value;saveCfg()});
+tempSlider.addEventListener('input',function(){
+  cfg.temperature=parseFloat(tempSlider.value);
+  tempVal.textContent=cfg.temperature.toFixed(2);
+  saveCfg();
+});
+voiceSelect.addEventListener('change',function(){cfg.voiceURI=voiceSelect.value||null;saveCfg()});
 keyClear.addEventListener('click',function(){
   localStorage.removeItem(KEYS.api);
   apiKey='';
@@ -1180,19 +1314,22 @@ keyClear.addEventListener('click',function(){
 });
 keySave.addEventListener('click',function(){
   var candidate=keyInput.value.trim();
-  if(!candidate&&!apiKey){
-    keyStatus.textContent='Enter a key first.';
-    keyStatus.className='key-status err';
-    return;
-  }
+  cfg.provider=providerSelect.value;
   cfg.model=modelSelect.value;
   cfg.temperature=parseFloat(tempSlider.value);
   cfg.voiceURI=voiceSelect.value||null;
+  if(cfg.provider==='openai-compat')cfg.customUrl=customUrl.value.trim();
   saveCfg();
+
   if(!candidate){
+    if(!apiKey){
+      keyStatus.textContent='Enter a key first.';
+      keyStatus.className='key-status err';
+      return;
+    }
     keyStatus.textContent='Settings saved. Key unchanged.';
     keyStatus.className='key-status ok';
-    setTimeout(closeSettings,800);
+    setTimeout(closeSettings,700);
     return;
   }
   keyStatus.textContent='Testing key…';
@@ -1204,20 +1341,13 @@ keySave.addEventListener('click',function(){
     keyStatus.className='key-status ok';
     setTimeout(function(){
       closeSettings();
-      addMessage('system','Settings saved. JARVIS is ready.',false);
+      addMessage('system','Settings saved. '+PROVIDERS[cfg.provider].defaultModel+' ready.',false);
     },800);
   }).catch(function(err){
     keyStatus.textContent='✗ '+err.message;
     keyStatus.className='key-status err';
   });
 });
-modelSelect.addEventListener('change',function(){cfg.model=modelSelect.value;saveCfg()});
-tempSlider.addEventListener('input',function(){
-  cfg.temperature=parseFloat(tempSlider.value);
-  tempVal.textContent=cfg.temperature.toFixed(2);
-  saveCfg();
-});
-voiceSelect.addEventListener('change',function(){cfg.voiceURI=voiceSelect.value||null;saveCfg()});
 settingsModal.addEventListener('click',function(e){if(e.target===settingsModal)closeSettings()});
 exportBtn.addEventListener('click',exportMemory);
 importBtn.addEventListener('click',function(){importFile.click()});
@@ -1237,7 +1367,7 @@ if(!window.speechSynthesis){
 }
 replayChatLog();
 if(!apiKey){
-  addMessage('system','No API key configured. Click Settings below to add your free Gemini key. Type /help for commands.',false);
+  addMessage('system','No API key configured. Click Settings below to add one. Gemini free tier is recommended. Type /help for commands.',false);
 }
 setTimeout(function(){input.focus()},200);
 
