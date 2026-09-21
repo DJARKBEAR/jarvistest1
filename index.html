@@ -8,21 +8,15 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{background:#01030a;color:#c5e8f7;font-family:'Segoe UI',system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;padding:12px;overflow:hidden;position:relative}
-
 .bg-aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .bg-aurora::before,.bg-aurora::after{content:'';position:absolute;width:80vmax;height:80vmax;border-radius:50%;filter:blur(120px);opacity:.12;animation:drift 24s ease-in-out infinite alternate}
 .bg-aurora::before{background:radial-gradient(circle,#00d4ff,transparent 65%);top:-30vmax;left:-20vmax}
 .bg-aurora::after{background:radial-gradient(circle,#5c2eff,transparent 65%);bottom:-30vmax;right:-20vmax;animation-duration:32s}
 @keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(20vmax,-10vmax) scale(1.15)}}
-
 .bg-grid{position:fixed;inset:0;z-index:1;pointer-events:none;background-image:linear-gradient(rgba(0,212,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.035) 1px,transparent 1px);background-size:50px 50px;mask-image:radial-gradient(circle at center,black 30%,transparent 80%)}
-
 .scanlines{position:fixed;inset:0;z-index:999;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,212,255,.012) 3px,transparent 4px);mix-blend-mode:overlay}
-
 .vignette{position:fixed;inset:0;z-index:998;pointer-events:none;background:radial-gradient(ellipse at center,transparent 40%,rgba(0,0,0,.65) 100%)}
-
 .container{width:100%;max-width:1040px;position:relative;z-index:10;display:flex;flex-direction:column;height:100%;max-height:100vh}
-
 .header{display:grid;grid-template-columns:90px 1fr 90px;align-items:center;gap:14px;padding:6px 0 14px;flex-shrink:0}
 .orb{width:76px;height:76px;filter:drop-shadow(0 0 14px rgba(0,212,255,.55))}
 .orb svg{width:100%;height:100%}
@@ -36,9 +30,8 @@ body{background:#01030a;color:#c5e8f7;font-family:'Segoe UI',system-ui,sans-seri
 .orb.listening .core{animation-duration:.9s}
 .orb.thinking .core{animation-duration:.45s}
 .orb.speaking .core{animation-duration:.65s}
-
 .tb{text-align:center}
-.tb h1{font-size:30px;letter-spacing:14px;color:#00d4ff;font-weight:200;margin-left:14px;text-shadow:0 0 24px rgba(0,212,255,.75),0 0 80px rgba(0,212,255,.35);animation:tg 4s ease-in-out infinite;background:linear-gradient(180deg,#e0faff,#00d4ff 60%,#0072b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.tb h1{font-size:30px;letter-spacing:14px;font-weight:200;margin-left:14px;background:linear-gradient(180deg,#e0faff,#00d4ff 60%,#0072b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:tg 4s ease-in-out infinite}
 @keyframes tg{0%,100%{filter:drop-shadow(0 0 10px rgba(0,212,255,.6))}50%{filter:drop-shadow(0 0 22px rgba(0,212,255,.95))}}
 .st{font-size:11px;color:#4a7a9b;letter-spacing:4px;text-transform:uppercase;margin-top:8px;height:14px;transition:color .3s;display:flex;align-items:center;justify-content:center;gap:6px}
 .st::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}
@@ -47,26 +40,21 @@ body{background:#01030a;color:#c5e8f7;font-family:'Segoe UI',system-ui,sans-seri
 .st.speaking{color:#00d4ff;animation:bl 1s ease-in-out infinite}
 .st.error{color:#ff3b3b}
 @keyframes bl{0%,100%{opacity:1}50%{opacity:.35}}
-
 .diag{display:flex;flex-direction:column;gap:5px;font-size:9px;color:#3d5a73;letter-spacing:1.5px;text-transform:uppercase;text-align:right}
 .diag .bar{width:66px;height:3px;background:rgba(0,212,255,.08);border-radius:2px;overflow:hidden;margin-left:auto}
 .diag .bar>div{height:100%;background:linear-gradient(90deg,#00d4ff,#7dd3fc);transition:width .5s;box-shadow:0 0 8px #00d4ff}
-
 .waveform-wrap{height:40px;margin-bottom:12px;flex-shrink:0;background:linear-gradient(180deg,rgba(10,16,28,.7),rgba(10,16,28,.4));border:1px solid rgba(0,212,255,.18);border-radius:10px;overflow:hidden;backdrop-filter:blur(10px);position:relative}
 .waveform-wrap::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(0,212,255,.06),transparent);animation:sweep 4s linear infinite;pointer-events:none}
 @keyframes sweep{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
 #waveform{width:100%;height:100%;display:block;position:relative}
-
-.chat-wrapper{flex:1;position:relative;background:linear-gradient(180deg,rgba(10,16,28,.85),rgba(5,10,20,.75));border:1px solid rgba(0,212,255,.22);border-radius:10px;padding:22px;overflow-y:auto;margin-bottom:12px;backdrop-filter:blur(14px);scroll-behavior:smooth;min-height:0;box-shadow:inset 0 0 80px rgba(0,212,255,.05),0 8px 50px rgba(0,0,0,.6),0 0 0 1px rgba(0,212,255,.05)}
+.chat-wrapper{flex:1;position:relative;background:linear-gradient(180deg,rgba(10,16,28,.85),rgba(5,10,20,.75));border:1px solid rgba(0,212,255,.22);border-radius:10px;padding:22px;overflow-y:auto;margin-bottom:12px;backdrop-filter:blur(14px);scroll-behavior:smooth;min-height:0;box-shadow:inset 0 0 80px rgba(0,212,255,.05),0 8px 50px rgba(0,0,0,.6)}
 .chat-wrapper::before,.chat-wrapper::after,.chat-wrapper>.cbl,.chat-wrapper>.cbr{content:'';position:absolute;width:22px;height:22px;border-color:#00d4ff;pointer-events:none;filter:drop-shadow(0 0 6px rgba(0,212,255,.6))}
 .chat-wrapper::before{top:-1px;left:-1px;border-top:2px solid;border-left:2px solid;border-radius:10px 0 0 0}
 .chat-wrapper::after{top:-1px;right:-1px;border-top:2px solid;border-right:2px solid;border-radius:0 10px 0 0}
 .chat-wrapper>.cbl{bottom:-1px;left:-1px;border-bottom:2px solid;border-left:2px solid;border-radius:0 0 0 10px}
 .chat-wrapper>.cbr{bottom:-1px;right:-1px;border-bottom:2px solid;border-right:2px solid;border-radius:0 0 10px 0}
 .chat-wrapper::-webkit-scrollbar{width:8px}
-.chat-wrapper::-webkit-scrollbar-track{background:rgba(0,212,255,.03);border-radius:4px}
 .chat-wrapper::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#00d4ff,#0072b8);border-radius:4px}
-
 .msg{margin-bottom:18px;line-height:1.7;font-size:15px;animation:fi .4s cubic-bezier(.2,.8,.2,1);display:flex;gap:14px}
 @keyframes fi{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .msg .label{font-weight:700;min-width:64px;flex-shrink:0;font-size:11px;padding-top:4px;letter-spacing:1.5px;text-transform:uppercase}
@@ -82,33 +70,26 @@ body{background:#01030a;color:#c5e8f7;font-family:'Segoe UI',system-ui,sans-seri
 .msg.jarvis .text::after{content:'';display:inline-block;width:8px;height:16px;background:#00d4ff;margin-left:4px;animation:cur 1s step-end infinite;vertical-align:text-bottom;opacity:0}
 .msg.jarvis.streaming .text::after{opacity:1}
 @keyframes cur{0%,100%{opacity:1}50%{opacity:0}}
-
 .typing{display:none;gap:5px;padding:8px 0 14px 78px}
 .typing.active{display:flex}
 .typing span{width:8px;height:8px;border-radius:50%;background:linear-gradient(180deg,#7dd3fc,#00d4ff);animation:bo 1.2s ease-in-out infinite;box-shadow:0 0 8px rgba(0,212,255,.6)}
 .typing span:nth-child(2){animation-delay:.15s}
 .typing span:nth-child(3){animation-delay:.3s}
 @keyframes bo{0%,80%,100%{transform:scale(.5);opacity:.35}40%{transform:scale(1);opacity:1}}
-
 .input-area{display:flex;gap:10px;align-items:center;flex-shrink:0}
 .input-wrap{flex:1;position:relative;display:flex;align-items:center}
 .input-wrap::before{content:'';position:absolute;inset:-1px;border-radius:8px;padding:1px;background:linear-gradient(135deg,rgba(0,212,255,.4),transparent 40%,transparent 60%,rgba(92,46,255,.4));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;opacity:.6;transition:opacity .3s}
-.input-wrap:focus-within::before{opacity:1;animation:brd 3s linear infinite}
-@keyframes brd{0%{background:linear-gradient(0deg,rgba(0,212,255,.5),transparent 40%,transparent 60%,rgba(92,46,255,.5))}25%{background:linear-gradient(90deg,rgba(0,212,255,.5),transparent 40%,transparent 60%,rgba(92,46,255,.5))}50%{background:linear-gradient(180deg,rgba(0,212,255,.5),transparent 40%,transparent 60%,rgba(92,46,255,.5))}75%{background:linear-gradient(270deg,rgba(0,212,255,.5),transparent 40%,transparent 60%,rgba(92,46,255,.5))}100%{background:linear-gradient(360deg,rgba(0,212,255,.5),transparent 40%,transparent 60%,rgba(92,46,255,.5))}}
+.input-wrap:focus-within::before{opacity:1}
 .input-wrap input{flex:1;background:rgba(15,24,40,.9);border:1px solid rgba(0,212,255,.18);color:#e0f7ff;padding:15px 18px;border-radius:8px;font-size:15px;outline:none;font-family:inherit;min-width:0;transition:border-color .3s,box-shadow .3s}
 .input-wrap input:focus{border-color:rgba(0,212,255,.4);box-shadow:0 0 30px rgba(0,212,255,.15)}
 .input-wrap input::placeholder{color:#4a7a9b}
-
-.btn{background:linear-gradient(180deg,rgba(0,212,255,.15),rgba(0,212,255,.05));border:1px solid rgba(0,212,255,.5);color:#00d4ff;padding:15px 22px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;transition:all .2s;font-family:inherit;white-space:nowrap;flex-shrink:0;letter-spacing:1.5px;position:relative;overflow:hidden}
-.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(0,212,255,.3),transparent);transform:translateX(-100%);transition:transform .5s}
-.btn:hover:not(:disabled)::before{transform:translateX(100%)}
-.btn:hover:not(:disabled){background:linear-gradient(180deg,rgba(0,212,255,.3),rgba(0,212,255,.1));box-shadow:0 0 24px rgba(0,212,255,.4),inset 0 0 20px rgba(0,212,255,.1)}
+.btn{background:linear-gradient(180deg,rgba(0,212,255,.15),rgba(0,212,255,.05));border:1px solid rgba(0,212,255,.5);color:#00d4ff;padding:15px 22px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;transition:all .2s;font-family:inherit;white-space:nowrap;flex-shrink:0;letter-spacing:1.5px}
+.btn:hover:not(:disabled){background:linear-gradient(180deg,rgba(0,212,255,.3),rgba(0,212,255,.1));box-shadow:0 0 24px rgba(0,212,255,.4)}
 .btn:active:not(:disabled){transform:scale(.96)}
 .btn.mic{font-size:20px;padding:15px 18px}
 .btn.mic.listening{background:linear-gradient(180deg,rgba(255,59,59,.3),rgba(255,59,59,.1));border-color:#ff3b3b;color:#ffaaaa;animation:mp 1.2s ease-in-out infinite}
 @keyframes mp{0%,100%{box-shadow:0 0 0 0 rgba(255,59,59,.5)}50%{box-shadow:0 0 0 14px rgba(255,59,59,0)}}
 .btn:disabled{opacity:.4;cursor:not-allowed}
-
 .mode-bar{display:flex;justify-content:center;gap:16px;margin-top:12px;font-size:12px;flex-wrap:wrap;flex-shrink:0}
 .mode-toggle{display:flex;align-items:center;gap:7px;color:#4a7a9b;cursor:pointer;user-select:none;transition:all .3s;padding:6px 12px;border-radius:6px;border:1px solid transparent}
 .mode-toggle:hover{color:#7dd3fc;background:rgba(0,212,255,.05);border-color:rgba(0,212,255,.15)}
@@ -116,13 +97,12 @@ body{background:#01030a;color:#c5e8f7;font-family:'Segoe UI',system-ui,sans-seri
 .mode-toggle.active.voice{color:#00d4ff}
 .mode-toggle .dot{width:8px;height:8px;border-radius:50%;background:currentColor;transition:all .3s}
 .mode-toggle.active .dot{box-shadow:0 0 10px currentColor,0 0 20px currentColor}
-
-.modal-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;animation:fi .2s}
+.modal-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px}
 .modal-overlay.active{display:flex}
-.modal{background:linear-gradient(180deg,#0a1220,#060a14);border:1px solid rgba(0,212,255,.4);border-radius:12px;padding:32px;max-width:600px;width:100%;box-shadow:0 0 100px rgba(0,212,255,.35),inset 0 0 60px rgba(0,212,255,.04);max-height:90vh;overflow-y:auto}
+.modal{background:linear-gradient(180deg,#0a1220,#060a14);border:1px solid rgba(0,212,255,.4);border-radius:12px;padding:32px;max-width:600px;width:100%;box-shadow:0 0 100px rgba(0,212,255,.35);max-height:90vh;overflow-y:auto}
 .modal::-webkit-scrollbar{width:6px}
 .modal::-webkit-scrollbar-thumb{background:rgba(0,212,255,.3);border-radius:3px}
-.modal h2{color:#00d4ff;font-size:18px;letter-spacing:5px;text-transform:uppercase;margin-bottom:14px;font-weight:300;text-shadow:0 0 15px rgba(0,212,255,.5)}
+.modal h2{color:#00d4ff;font-size:18px;letter-spacing:5px;text-transform:uppercase;margin-bottom:14px;font-weight:300}
 .modal h3{color:#7dd3fc;font-size:11px;letter-spacing:3px;text-transform:uppercase;margin:22px 0 10px;font-weight:500;border-bottom:1px solid rgba(0,212,255,.15);padding-bottom:8px;display:flex;align-items:center;gap:8px}
 .modal h3::before{content:'';width:3px;height:14px;background:#00d4ff;box-shadow:0 0 8px #00d4ff}
 .modal p{color:#7dd3fc;font-size:13px;line-height:1.6;margin-bottom:14px}
@@ -130,17 +110,16 @@ body{background:#01030a;color:#c5e8f7;font-family:'Segoe UI',system-ui,sans-seri
 .modal label{display:block;color:#4a7a9b;font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;margin-top:14px}
 .modal input[type=password],.modal input[type=text],.modal select{width:100%;background:rgba(20,30,48,.9);border:1px solid rgba(0,212,255,.25);color:#e0f7ff;padding:13px 15px;border-radius:7px;font-size:14px;font-family:inherit;outline:none;transition:all .3s}
 .modal input:focus,.modal select:focus{border-color:#00d4ff;box-shadow:0 0 24px rgba(0,212,255,.25)}
-.modal input[type=range]{width:100%;accent-color:#00d4ff;background:transparent;height:6px;margin-top:6px}
+.modal input[type=range]{width:100%;accent-color:#00d4ff;margin-top:6px}
 .modal-buttons{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;flex-wrap:wrap}
 .modal-buttons .btn{padding:11px 20px;font-size:12px;letter-spacing:1px}
 .modal-buttons .btn.ghost{background:transparent;border-color:rgba(74,122,155,.6);color:#7dd3fc}
 .modal-buttons .btn.ghost:hover{border-color:#7dd3fc;color:#e0f7ff;background:rgba(125,211,252,.08)}
 .key-status{font-size:12px;margin-top:16px;text-align:center;letter-spacing:1px;min-height:18px}
-.key-status.ok{color:#00ff88;text-shadow:0 0 10px rgba(0,255,136,.5)}
+.key-status.ok{color:#00ff88}
 .key-status.missing{color:#ffaa00}
-.key-status.err{color:#ff3b3b;text-shadow:0 0 10px rgba(255,59,59,.5)}
+.key-status.err{color:#ff3b3b}
 .provider-note{background:rgba(0,212,255,.05);border-left:2px solid #00d4ff;padding:10px 14px;border-radius:0 6px 6px 0;font-size:11px;color:#7dd3fc;margin:10px 0;line-height:1.6}
-
 @media (max-width:700px){
 .header{grid-template-columns:60px 1fr 60px;gap:8px}
 .orb{width:52px;height:52px}
@@ -151,14 +130,12 @@ body{background:#01030a;color:#c5e8f7;font-family:'Segoe UI',system-ui,sans-seri
 .btn{padding:12px 14px;font-size:12px}
 .btn.mic{font-size:17px;padding:12px 14px}
 .mode-bar{font-size:10px;gap:6px}
-.mode-toggle{padding:5px 8px}
 .waveform-wrap{height:28px}
 .modal{padding:20px}
 }
 </style>
 </head>
 <body>
-
 <div class="bg-aurora"></div>
 <div class="bg-grid"></div>
 <div class="scanlines"></div>
@@ -227,23 +204,21 @@ body{background:#01030a;color:#c5e8f7;font-family:'Segoe UI',system-ui,sans-seri
 <h3>AI Provider</h3>
 <label for="providerSelect">Provider</label>
 <select id="providerSelect">
-<option value="gemini">Google Gemini (free tier, 1500/day)</option>
-<option value="openrouter">OpenRouter (free tier, 50/day)</option>
-<option value="groq">Groq (free tier, 14400/day)</option>
-<option value="openai-compat">Custom OpenAI-compatible endpoint</option>
+<option value="gemini">Google Gemini (free tier)</option>
 </select>
 <div class="provider-note" id="providerNote"></div>
 
-<label for="keyInput">API Key</label>
-<input type="password" id="keyInput" placeholder="Paste your key here" autocomplete="off" spellcheck="false">
-
-<div id="customUrlWrap" style="display:none">
-<label for="customUrl">Base URL</label>
-<input type="text" id="customUrl" placeholder="https://api.example.com/v1" autocomplete="off" spellcheck="false">
-</div>
+<label for="keyInput">Gemini API Key</label>
+<input type="password" id="keyInput" placeholder="AQ.Ab8RN6..." autocomplete="off" spellcheck="false">
+<p style="font-size:11px;color:#7dd3fc;margin-top:6px">Get one free at <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com/app/apikey</a></p>
 
 <label for="modelSelect">Model</label>
-<select id="modelSelect"></select>
+<select id="modelSelect">
+<option value="gemini-2.5-flash-lite">Gemini 2.5 Flash-Lite (fastest)</option>
+<option value="gemini-2.5-flash">Gemini 2.5 Flash (balanced)</option>
+<option value="gemini-2.5-pro">Gemini 2.5 Pro (smartest, slower)</option>
+<option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+</select>
 
 <h3>Behaviour</h3>
 <label for="tempSlider">Temperature: <span id="tempVal">0.75</span></label>
@@ -273,10 +248,6 @@ body{background:#01030a;color:#c5e8f7;font-family:'Segoe UI',system-ui,sans-seri
 (function(){
 'use strict';
 
-// ============================================================
-// JARVIS v11 — multi-provider, streaming, glass HUD
-// ============================================================
-
 var chat=document.getElementById('chat');
 var input=document.getElementById('input');
 var sendBtn=document.getElementById('sendBtn');
@@ -299,10 +270,7 @@ var keySave=document.getElementById('keySave');
 var keyCancel=document.getElementById('keyCancel');
 var keyClear=document.getElementById('keyClear');
 var keyStatus=document.getElementById('keyStatus');
-var providerSelect=document.getElementById('providerSelect');
 var providerNote=document.getElementById('providerNote');
-var customUrlWrap=document.getElementById('customUrlWrap');
-var customUrl=document.getElementById('customUrl');
 var modelSelect=document.getElementById('modelSelect');
 var tempSlider=document.getElementById('tempSlider');
 var tempVal=document.getElementById('tempVal');
@@ -313,45 +281,19 @@ var importFile=document.getElementById('importFile');
 
 var WAKE_WORD='jarvis';
 var KEYS={
-  api:'jarvis_key_v11',
-  provider:'jarvis_provider_v11',
-  mem:'jarvis_mem_v11',
-  chat:'jarvis_chat_v11',
-  profile:'jarvis_profile_v11',
-  settings:'jarvis_settings_v11'
+  api:'jarvis_gemini_key_v12',
+  mem:'jarvis_mem_v12',
+  chat:'jarvis_chat_v12',
+  profile:'jarvis_profile_v12',
+  settings:'jarvis_settings_v12'
 };
 var MAX_CHAT=200;
 
-// Provider presets
-var PROVIDERS={
-  gemini:{
-    note:'Free tier from <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com</a>. 15/min, 1500/day. Key starts with AQ. or AIzaSy.',
-    models:['gemini-2.5-flash-lite','gemini-2.5-flash','gemini-2.5-pro','gemini-2.0-flash'],
-    defaultModel:'gemini-2.5-flash-lite'
-  },
-  openrouter:{
-    note:'Free models from <a href="https://openrouter.ai/keys" target="_blank">openrouter.ai</a>. 20/min, 50/day. Key starts with sk-or-v1-.',
-    models:['meta-llama/llama-3.3-70b-instruct:free','deepseek/deepseek-r1:free','google/gemini-2.0-flash-exp:free','mistralai/mistral-small-3.1-24b-instruct:free'],
-    defaultModel:'meta-llama/llama-3.3-70b-instruct:free'
-  },
-  groq:{
-    note:'Free tier from <a href="https://console.groq.com/keys" target="_blank">console.groq.com</a>. 30/min, 14400/day. Key starts with gsk_.',
-    models:['llama-3.3-70b-versatile','llama-3.1-8b-instant','mixtral-8x7b-32768'],
-    defaultModel:'llama-3.3-70b-versatile'
-  },
-  'openai-compat':{
-    note:'Any OpenAI-compatible endpoint: OpenAI, Together, Fireworks, local Ollama, etc. Enter the base URL below.',
-    models:['gpt-4o-mini','gpt-4o','gpt-3.5-turbo','custom'],
-    defaultModel:'gpt-4o-mini'
-  }
-};
-
-var cfg=loadJSON(KEYS.settings,{provider:'gemini',model:'gemini-2.5-flash-lite',temperature:0.75,voiceURI:null,customUrl:''});
+var cfg=loadJSON(KEYS.settings,{model:'gemini-2.5-flash-lite',temperature:0.75,voiceURI:null});
 var apiKey=localStorage.getItem(KEYS.api)||'';
 var memory=loadJSON(KEYS.mem,{facts:[],topics:{}});
 var chatLog=loadJSON(KEYS.chat,[]);
 var profile=loadJSON(KEYS.profile,{name:null,createdAt:Date.now(),lastSeen:Date.now(),sessions:0,totalTurns:0,favoriteTopics:{}});
-
 var isProcessing=false;
 var continuousMode=false;
 var voiceOutput=true;
@@ -362,7 +304,6 @@ var audioCtx=null;
 var analyser=null;
 var micData=null;
 var wavePhase=0;
-var streamAbort=null;
 
 profile.sessions=(profile.sessions||0)+1;
 profile.lastSeen=Date.now();
@@ -450,10 +391,8 @@ function consolidateMemory(){
       for(var i=0;i<kept.length;i++){
         if(similarity(kept[i].key,f.key)>0.85){dup=kept[i];break}
       }
-      if(dup){
-        dup.value=f.value;dup.time=f.time;
-        dup.accessCount=(dup.accessCount||0)+(f.accessCount||0);
-      }else kept.push(f);
+      if(dup){dup.value=f.value;dup.time=f.time;dup.accessCount=(dup.accessCount||0)+(f.accessCount||0)}
+      else kept.push(f);
     }
   });
   memory.facts=kept;
@@ -530,7 +469,6 @@ function memorySummary(){
   if(topics.length)lines.push('- Frequent topics: '+topics.join(', '));
   return lines.length?'What you know about this user:\n'+lines.join('\n'):'';
 }
-
 function buildSystemPrompt(mood){
   var h=new Date().getHours();
   var tod=h<5?'late night':h<12?'morning':h<17?'afternoon':h<21?'evening':'night';
@@ -585,10 +523,6 @@ function addMessage(role,text,save){
   }
   return{div:div,body:body};
 }
-function updateMessageText(bodyEl,text){
-  bodyEl.textContent=text;
-  chat.scrollTop=chat.scrollHeight;
-}
 function showTyping(show){
   typing.classList.toggle('active',show);
   if(show)chat.scrollTop=chat.scrollHeight;
@@ -611,7 +545,7 @@ function replayChatLog(){
 function generateGreeting(){
   var h=new Date().getHours();
   var name=profile.name?', '+profile.name:'';
-  if(!apiKey)return'Systems online'+name+'. Set your API key first — click Settings below.';
+  if(!apiKey)return'Systems online'+name+'. Set your Gemini API key first — click Settings below.';
   if(profile.totalTurns===0)return'Systems online'+name+'. I\'ll remember what we discuss. Type /help for commands.';
   if(h<5)return'Working late again'+name+'? I\'m here.';
   if(h<12)return'Good morning'+name+'. What\'s first?';
@@ -638,7 +572,7 @@ function wipeMemory(){
   addMessage('system','Everything wiped. Fresh start.',false);
 }
 
-// ---------- VOICE OUT ----------
+// ---------- VOICE ----------
 function populateVoices(){
   if(!window.speechSynthesis)return;
   var voices=window.speechSynthesis.getVoices();
@@ -690,18 +624,7 @@ function handleSlashCommand(text){
   var args=parts.slice(1).join(' ');
   switch(cmd){
     case'help':
-      return'Commands:\n'+
-        '/help — show this\n'+
-        '/remember <key> = <value> — store a fact\n'+
-        '/forget <key> — remove a fact\n'+
-        '/memory — show all stored facts\n'+
-        '/topics — most discussed topics\n'+
-        '/mood — analyse your current tone\n'+
-        '/system — system status\n'+
-        '/summary — summarise your profile\n'+
-        '/export — download memory as JSON\n'+
-        '/clear — clear conversation\n'+
-        '/wipe — erase everything';
+      return'Commands:\n/help\n/remember <key> = <value>\n/forget <key>\n/memory\n/topics\n/mood\n/system\n/summary\n/export\n/clear\n/wipe';
     case'remember':
       var m=args.match(/^(.+?)\s*[=:]\s*(.+)$/);
       if(!m)return'Usage: /remember <key> = <value>';
@@ -721,25 +644,18 @@ function handleSlashCommand(text){
       if(!lastUser)return'No recent message to analyse.';
       return'Your last message read as: '+detectMood(lastUser.text)+'.';
     case'system':
-      return'System status:\n'+
-        '• Provider: '+cfg.provider+'\n'+
-        '• Model: '+cfg.model+'\n'+
-        '• API key: '+(apiKey?'configured':'missing')+'\n'+
-        '• Sessions: '+profile.sessions+'\n'+
-        '• Total exchanges: '+profile.totalTurns+'\n'+
-        '• Facts stored: '+memory.facts.length+'\n'+
-        '• Topics tracked: '+Object.keys(memory.topics).length;
+      return'System status:\n• Model: '+cfg.model+'\n• API key: '+(apiKey?'configured':'missing')+'\n• Sessions: '+profile.sessions+'\n• Exchanges: '+profile.totalTurns+'\n• Facts: '+memory.facts.length;
     case'summary':
       var p=[];
       if(profile.name)p.push('You are '+profile.name+'.');
-      p.push('We\'ve exchanged '+profile.totalTurns+' messages across '+profile.sessions+' sessions.');
-      if(memory.facts.length)p.push('I have '+memory.facts.length+' fact'+(memory.facts.length===1?'':'s')+' on file.');
+      p.push(profile.totalTurns+' messages across '+profile.sessions+' sessions.');
+      if(memory.facts.length)p.push(memory.facts.length+' facts on file.');
       var top=topTopics(3);
-      if(top.length)p.push('You most often discuss: '+top.join(', ')+'.');
+      if(top.length)p.push('Top topics: '+top.join(', ')+'.');
       return p.join(' ');
     case'export':
       exportMemory();
-      return'Memory exported as jarvis-memory.json.';
+      return'Memory exported.';
     case'clear':
       clearConversation();
       return null;
@@ -750,14 +666,8 @@ function handleSlashCommand(text){
       return'Unknown command: /'+cmd+'. Try /help.';
   }
 }
-
 function exportMemory(){
-  var data={
-    exportedAt:new Date().toISOString(),
-    version:'11',
-    memory:memory,
-    profile:profile
-  };
+  var data={exportedAt:new Date().toISOString(),version:'12',memory:memory,profile:profile};
   var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   var url=URL.createObjectURL(blob);
   var a=document.createElement('a');
@@ -770,20 +680,10 @@ function importMemory(file){
   reader.onload=function(e){
     try{
       var data=JSON.parse(e.target.result);
-      if(data.memory){
-        memory=data.memory;
-        if(!memory.facts)memory.facts=[];
-        if(!memory.topics)memory.topics={};
-        saveMemory();
-      }
-      if(data.profile){
-        profile=data.profile;
-        saveProfile();
-      }
+      if(data.memory){memory=data.memory;if(!memory.facts)memory.facts=[];if(!memory.topics)memory.topics={};saveMemory()}
+      if(data.profile){profile=data.profile;saveProfile()}
       addMessage('system','Memory imported. Facts: '+memory.facts.length+'.',false);
-    }catch(err){
-      addMessage('error','Import failed: '+err.message);
-    }
+    }catch(err){addMessage('error','Import failed: '+err.message)}
   };
   reader.readAsText(file);
 }
@@ -793,51 +693,21 @@ function tryLocalCommand(text){
   var t=text.toLowerCase().trim();
   var m;
   if(t.charAt(0)==='/')return handleSlashCommand(text);
-  if(/^(?:what(?:'s| is) the )?time\b/.test(t)||t==='time'){
-    return'It is '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})+'.';
-  }
-  if(/^(?:what(?:'s| is) (?:the )?)?date\b/.test(t)||t==='date'){
-    return'Today is '+new Date().toLocaleDateString(undefined,{weekday:'long',year:'numeric',month:'long',day:'numeric'})+'.';
-  }
-  if(/^(?:hello|hi|hey)(?:\s+jarvis)?[.!]?$/.test(t)){
-    return profile.name?'Hello, '+profile.name+'.':'Hello.';
-  }
-  if(/^(?:thank you|thanks)(?:\s+jarvis)?[.!]?$/.test(t)){
-    return'Of course.';
-  }
+  if(/^(?:what(?:'s| is) the )?time\b/.test(t)||t==='time')return'It is '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})+'.';
+  if(/^(?:what(?:'s| is) (?:the )?)?date\b/.test(t)||t==='date')return'Today is '+new Date().toLocaleDateString(undefined,{weekday:'long',year:'numeric',month:'long',day:'numeric'})+'.';
+  if(/^(?:hello|hi|hey)(?:\s+jarvis)?[.!]?$/.test(t))return profile.name?'Hello, '+profile.name+'.':'Hello.';
+  if(/^(?:thank you|thanks)(?:\s+jarvis)?[.!]?$/.test(t))return'Of course.';
   m=text.match(/^(?:my name is|i am|i'm|call me)\s+([A-Za-z][A-Za-z'\- ]{1,30})\.?$/i);
-  if(m){
-    profile.name=m[1].trim();
-    saveProfile();
-    return'Noted, '+profile.name+'. I\'ll remember that.';
-  }
-  if(/^what(?:'s| is) my name\??$/i.test(t)){
-    return profile.name?'You\'re '+profile.name+'.':'You haven\'t told me yet.';
-  }
+  if(m){profile.name=m[1].trim();saveProfile();return'Noted, '+profile.name+'. I\'ll remember that.'}
+  if(/^what(?:'s| is) my name\??$/i.test(t))return profile.name?'You\'re '+profile.name+'.':'You haven\'t told me yet.';
   m=text.match(/^(?:remember|note)\s+(?:that\s+)?(.+?)\s+(?:is|are)\s+(.+)$/i);
-  if(m){
-    var k=m[1].trim();
-    var v=m[2].trim().replace(/[.!?]+$/,'');
-    rememberFact(k,v);
-    return'Noted — '+k+': '+v+'.';
-  }
+  if(m){var k=m[1].trim();var v=m[2].trim().replace(/[.!?]+$/,'');rememberFact(k,v);return'Noted — '+k+': '+v+'.'}
   m=text.match(/^(?:remember|note)\s+(.+?)\s*[:=]\s*(.+)$/i);
-  if(m){
-    var k2=m[1].trim(),v2=m[2].trim();
-    rememberFact(k2,v2);
-    return'Noted — '+k2+': '+v2+'.';
-  }
+  if(m){var k2=m[1].trim(),v2=m[2].trim();rememberFact(k2,v2);return'Noted — '+k2+': '+v2+'.'}
   m=text.match(/^(?:what(?:'s| is)|who(?:'s| is)|do you remember|what do you know about)\s+(?:my\s+)?(.+?)\??$/i);
-  if(m){
-    var k3=m[1].trim();
-    var v3=getFact(k3)||getFact('my '+k3);
-    if(v3)return k3+' is '+v3+'.';
-  }
+  if(m){var k3=m[1].trim();var v3=getFact(k3)||getFact('my '+k3);if(v3)return k3+' is '+v3+'.'}
   m=text.match(/^(?:forget|delete)\s+(?:that\s+)?(.+?)\.?$/i);
-  if(m){
-    var k4=m[1].trim();
-    if(forgetFact(k4))return'Forgotten: '+k4+'.';
-  }
+  if(m){var k4=m[1].trim();if(forgetFact(k4))return'Forgotten: '+k4+'.'}
   if(/^what do you know about me\??$/i.test(t)){
     var parts=[];
     if(profile.name)parts.push('You\'re '+profile.name+'.');
@@ -849,99 +719,54 @@ function tryLocalCommand(text){
   var math=t.match(/^(?:what(?:'s| is)\s+)?(-?\d+(?:\.\d+)?)\s*([\+\-\*\/x])\s*(-?\d+(?:\.\d+)?)\s*\??$/);
   if(math){
     var a=parseFloat(math[1]),b=parseFloat(math[3]),op=math[2],r;
-    if(op==='+')r=a+b;
-    else if(op==='-')r=a-b;
-    else if(op==='*'||op==='x')r=a*b;
-    else r=b===0?'undefined':a/b;
+    if(op==='+')r=a+b;else if(op==='-')r=a-b;else if(op==='*'||op==='x')r=a*b;else r=b===0?'undefined':a/b;
     return'That would be '+r+'.';
   }
-  if(/^(?:clear|reset)(?:\s+(?:chat|conversation))?$/.test(t)){
-    clearConversation();
-    return null;
-  }
+  if(/^(?:clear|reset)(?:\s+(?:chat|conversation))?$/.test(t)){clearConversation();return null}
   return null;
 }
 
 // ============================================================
-// MULTI-PROVIDER AI CALL (with streaming where supported)
+// GEMINI CALL — direct from browser, using X-Goog-Api-Key header
+// This header is the correct way to call Gemini from a browser.
+// The URL parameter (?key=) is what causes "Failed to fetch".
 // ============================================================
-function buildRequest(prompt){
-  var provider=cfg.provider;
-  var url,headers,body;
-
-  if(provider==='gemini'){
-    url='https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(cfg.model)+':generateContent?key='+encodeURIComponent(apiKey);
-    headers={'Content-Type':'application/json'};
-    body={
+function callGemini(prompt){
+  if(!apiKey)throw new Error('No API key set. Click Settings below.');
+  var url='https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(cfg.model)+':generateContent';
+  return fetch(url,{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'X-Goog-Api-Key':apiKey
+    },
+    body:JSON.stringify({
       contents:[{parts:[{text:prompt}]}],
       generationConfig:{temperature:cfg.temperature,maxOutputTokens:800}
-    };
-    return{url:url,headers:headers,body:body,type:'gemini'};
-  }
-
-  if(provider==='openrouter'){
-    url='https://openrouter.ai/api/v1/chat/completions';
-    headers={'Content-Type':'application/json','Authorization':'Bearer '+apiKey,'HTTP-Referer':location.origin,'X-Title':'JARVIS'};
-    body={model:cfg.model,messages:[{role:'user',content:prompt}],temperature:cfg.temperature,max_tokens:800};
-    return{url:url,headers:headers,body:body,type:'openai'};
-  }
-
-  if(provider==='groq'){
-    url='https://api.groq.com/openai/v1/chat/completions';
-    headers={'Content-Type':'application/json','Authorization':'Bearer '+apiKey};
-    body={model:cfg.model,messages:[{role:'user',content:prompt}],temperature:cfg.temperature,max_tokens:800};
-    return{url:url,headers:headers,body:body,type:'openai'};
-  }
-
-  // openai-compat
-  var base=(cfg.customUrl||'').replace(/\/+$/,'');
-  url=base+'/chat/completions';
-  headers={'Content-Type':'application/json','Authorization':'Bearer '+apiKey};
-  body={model:cfg.model,messages:[{role:'user',content:prompt}],temperature:cfg.temperature,max_tokens:800};
-  return{url:url,headers:headers,body:body,type:'openai'};
-}
-
-function extractText(type,data){
-  if(type==='gemini'){
-    return data&&data.candidates&&data.candidates[0]&&data.candidates[0].content&&
-      data.candidates[0].content.parts&&data.candidates[0].content.parts[0]&&
-      data.candidates[0].content.parts[0].text;
-  }
-  return data&&data.choices&&data.choices[0]&&data.choices[0].message&&data.choices[0].message.content;
-}
-
-function callAI(prompt){
-  var req=buildRequest(prompt);
-  var controller=new AbortController();
-  streamAbort=controller;
-  return fetch(req.url,{
-    method:'POST',
-    headers:req.headers,
-    body:JSON.stringify(req.body),
-    signal:controller.signal
+    })
   }).then(function(res){
     if(!res.ok){
       return res.text().then(function(txt){
         var detail='';
-        try{var j=JSON.parse(txt);detail=(j.error&&j.error.message)||txt.slice(0,200)}
-        catch(e){detail=txt.slice(0,200)}
-        if(res.status===429)throw new Error('Rate limit reached. Wait a moment or try another provider.');
-        if(res.status===401||res.status===403)throw new Error('Key rejected ('+res.status+'). Check Settings.');
-        throw new Error('AI '+res.status+': '+detail);
+        try{var j=JSON.parse(txt);detail=(j.error&&j.error.message)||txt.slice(0,300)}
+        catch(e){detail=txt.slice(0,300)}
+        if(res.status===429)throw new Error('Rate limit reached. Free tier: 15/min, 1500/day. Wait a moment.');
+        if(res.status===400)throw new Error('Bad request: '+detail);
+        if(res.status===401||res.status===403)throw new Error('Key rejected ('+res.status+'): '+detail);
+        throw new Error('Gemini '+res.status+': '+detail);
       });
     }
     return res.json();
   }).then(function(data){
-    var text=extractText(req.type,data);
-    if(!text)throw new Error('Empty response from provider.');
-    streamAbort=null;
+    var text=data&&data.candidates&&data.candidates[0]&&data.candidates[0].content&&
+      data.candidates[0].content.parts&&data.candidates[0].content.parts[0]&&
+      data.candidates[0].content.parts[0].text;
+    if(!text)throw new Error('Empty response. Try again.');
     return text.trim();
   });
 }
 
-// ============================================================
-// MAIN SEND
-// ============================================================
+// ---------- MAIN ----------
 function sendMessage(text){
   text=(text||'').trim();
   if(!text||isProcessing)return;
@@ -954,27 +779,17 @@ function sendMessage(text){
   trackTopic(text);
 
   var route=routeMessage(text);
-
   if(route.path==='local'){
     var local=tryLocalCommand(text);
-    if(local!==null){
-      addMessage('jarvis',local);
-      speak(local);
-      return;
-    }
+    if(local!==null){addMessage('jarvis',local);speak(local);return}
   }
-
   if(route.path==='memory'){
     var mem=tryLocalCommand(text);
-    if(mem!==null){
-      addMessage('jarvis',mem);
-      speak(mem);
-      return;
-    }
+    if(mem!==null){addMessage('jarvis',mem);speak(mem);return}
   }
 
   if(!apiKey){
-    addMessage('error','No API key set. Click Settings below to configure one.');
+    addMessage('error','No API key set. Click Settings below to add your Gemini key.');
     return;
   }
 
@@ -985,24 +800,18 @@ function sendMessage(text){
 
   var mood=detectMood(text);
   var ranked=rankContext(text,chatLog.slice(0,-1),8);
-  var historyBlock=ranked.map(function(m){
-    return(m.role==='user'?'User: ':'JARVIS: ')+m.text;
-  }).join('\n');
-
+  var historyBlock=ranked.map(function(m){return(m.role==='user'?'User: ':'JARVIS: ')+m.text}).join('\n');
   var prompt=buildSystemPrompt(mood)
     +(memorySummary()?'\n\n'+memorySummary():'')
     +(historyBlock?'\n\nRecent conversation:\n'+historyBlock:'')
     +'\n\nUser: '+text+'\nJARVIS:';
 
-  // Placeholder message we'll fill in as the reply comes back
   var placeholder=addMessage('jarvis','',true);
   placeholder.div.classList.add('streaming');
 
-  callAI(prompt).then(function(reply){
+  callGemini(prompt).then(function(reply){
     reply=(reply||'').replace(/^JARVIS:\s*/i,'').replace(/^["']|["']$/g,'');
     placeholder.div.classList.remove('streaming');
-
-    // Typewriter effect — reveal text faster than TTS reads it
     var full=reply;
     var idx=0;
     var speed=Math.max(4,Math.min(20,Math.floor(800/full.length)));
@@ -1011,18 +820,16 @@ function sendMessage(text){
       if(idx>=full.length){
         idx=full.length;
         clearInterval(iv);
-        updateMessageText(placeholder.body,full);
+        placeholder.body.textContent=full;
+        chat.scrollTop=chat.scrollHeight;
         speak(full);
         if(!voiceOutput){
           setStatus(continuousMode?'● LISTENING FOR "JARVIS"':'● ONLINE',continuousMode?'listening':'');
         }
-        // Update stored chat with final text
-        if(chatLog.length){
-          chatLog[chatLog.length-1].text=full;
-          saveChat();
-        }
+        if(chatLog.length){chatLog[chatLog.length-1].text=full;saveChat()}
       }else{
-        updateMessageText(placeholder.body,full.slice(0,idx));
+        placeholder.body.textContent=full.slice(0,idx);
+        chat.scrollTop=chat.scrollHeight;
       }
     },speed);
   }).catch(function(err){
@@ -1052,44 +859,19 @@ function listenOnce(){
   if(!SpeechRecognition){addMessage('system','Speech recognition needs Chrome or Edge.');return}
   if(isListening)return;
   recognition=initRec();
-  recognition.onstart=function(){
-    isListening=true;
-    micBtn.classList.add('listening');
-    setStatus('● LISTENING','listening');
-  };
-  recognition.onend=function(){
-    isListening=false;
-    micBtn.classList.remove('listening');
-    if(!isProcessing&&!continuousMode)setStatus('● ONLINE');
-  };
-  recognition.onerror=function(e){
-    if(e.error!=='no-speech'&&e.error!=='aborted'){
-      addMessage('system','Speech error: '+e.error);
-    }
-  };
+  recognition.onstart=function(){isListening=true;micBtn.classList.add('listening');setStatus('● LISTENING','listening')};
+  recognition.onend=function(){isListening=false;micBtn.classList.remove('listening');if(!isProcessing&&!continuousMode)setStatus('● ONLINE')};
+  recognition.onerror=function(e){if(e.error!=='no-speech'&&e.error!=='aborted')addMessage('system','Speech error: '+e.error)};
   recognition.onresult=function(e){sendMessage(e.results[0][0].transcript)};
   try{recognition.start()}catch(e){}
 }
 function startWake(){
-  if(!SpeechRecognition){
-    addMessage('system','Continuous mode needs Chrome or Edge.');
-    continuousMode=false;
-    continuousToggle.classList.remove('active');
-    return;
-  }
+  if(!SpeechRecognition){addMessage('system','Continuous mode needs Chrome or Edge.');continuousMode=false;continuousToggle.classList.remove('active');return}
   wakeListener=initRec();
-  wakeListener.continuous=true;
-  wakeListener.interimResults=false;
+  wakeListener.continuous=true;wakeListener.interimResults=false;
   wakeListener.onstart=function(){setStatus('● LISTENING FOR "JARVIS"','listening')};
-  wakeListener.onend=function(){
-    if(continuousMode)setTimeout(function(){if(continuousMode){try{wakeListener.start()}catch(e){}}},400);
-  };
-  wakeListener.onerror=function(e){
-    if(e.error==='not-allowed'||e.error==='service-not-allowed'){
-      addMessage('system','Microphone permission denied.');
-      stopWake();
-    }
-  };
+  wakeListener.onend=function(){if(continuousMode)setTimeout(function(){if(continuousMode){try{wakeListener.start()}catch(e){}}},400)};
+  wakeListener.onerror=function(e){if(e.error==='not-allowed'||e.error==='service-not-allowed'){addMessage('system','Microphone permission denied.');stopWake()}};
   wakeListener.onresult=function(e){
     var last=e.results[e.results.length-1];
     if(!last.isFinal)return;
@@ -1105,9 +887,7 @@ function startWake(){
           setTimeout(function(){
             var oneShot=initRec();
             oneShot.onresult=function(ev){sendMessage(ev.results[0][0].transcript)};
-            oneShot.onend=function(){
-              if(continuousMode)setTimeout(function(){try{wakeListener.start()}catch(e){}},400);
-            };
+            oneShot.onend=function(){if(continuousMode)setTimeout(function(){try{wakeListener.start()}catch(e){}},400)};
             try{oneShot.start()}catch(e){}
           },500);
         },300);
@@ -1158,27 +938,16 @@ function drawWave(){
   var barW=w/bars;
   for(var i=0;i<bars;i++){
     var amp;
-    if(analyser&&micData&&(isListening||continuousMode)){
-      amp=micData[Math.floor(i*micData.length/bars)]/255;
-    }else if(speaking){
-      amp=0.4+0.4*Math.abs(Math.sin(wavePhase+i*0.4))*Math.abs(Math.cos(wavePhase*0.7+i*0.2));
-    }else if(isProcessing){
-      amp=0.2+0.25*Math.abs(Math.sin(wavePhase*2+i*0.3));
-    }else{
-      amp=0.06+0.05*Math.abs(Math.sin(wavePhase+i*0.15));
-    }
+    if(analyser&&micData&&(isListening||continuousMode)){amp=micData[Math.floor(i*micData.length/bars)]/255}
+    else if(speaking){amp=0.4+0.4*Math.abs(Math.sin(wavePhase+i*0.4))*Math.abs(Math.cos(wavePhase*0.7+i*0.2))}
+    else if(isProcessing){amp=0.2+0.25*Math.abs(Math.sin(wavePhase*2+i*0.3))}
+    else{amp=0.06+0.05*Math.abs(Math.sin(wavePhase+i*0.15))}
     var barH=Math.max(2,amp*(h-6));
     var x=i*barW+1;
     var y=(h-barH)/2;
     var grad=ctx2d.createLinearGradient(0,y,0,y+barH);
-    if(active){
-      grad.addColorStop(0,'#5c2eff');
-      grad.addColorStop(0.5,'#00d4ff');
-      grad.addColorStop(1,'#7dd3fc');
-    }else{
-      grad.addColorStop(0,'#1a4a66');
-      grad.addColorStop(1,'#0d2634');
-    }
+    if(active){grad.addColorStop(0,'#5c2eff');grad.addColorStop(.5,'#00d4ff');grad.addColorStop(1,'#7dd3fc')}
+    else{grad.addColorStop(0,'#1a4a66');grad.addColorStop(1,'#0d2634')}
     ctx2d.fillStyle=grad;
     ctx2d.shadowBlur=active?8:0;
     ctx2d.shadowColor='#00d4ff';
@@ -1203,30 +972,12 @@ setInterval(function(){
 },900);
 
 // ---------- SETTINGS ----------
-function updateProviderUI(){
-  var p=PROVIDERS[cfg.provider];
-  providerNote.innerHTML=p.note;
-  modelSelect.innerHTML='';
-  p.models.forEach(function(m){
-    var opt=document.createElement('option');
-    opt.value=m;opt.textContent=m;
-    if(cfg.model===m)opt.selected=true;
-    modelSelect.appendChild(opt);
-  });
-  if(!p.models.includes(cfg.model)){
-    cfg.model=p.defaultModel;
-    modelSelect.value=cfg.model;
-    saveCfg();
-  }
-  customUrlWrap.style.display=cfg.provider==='openai-compat'?'block':'none';
-  if(cfg.provider==='openai-compat')customUrl.value=cfg.customUrl||'';
-}
+providerNote.innerHTML='Free tier from <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com</a>. 15/min, 1500/day. Key starts with <b>AQ.</b> or <b>AIzaSy</b>.';
 function openSettings(){
   keyInput.value='';
-  providerSelect.value=cfg.provider;
+  modelSelect.value=cfg.model;
   tempSlider.value=cfg.temperature;
   tempVal.textContent=cfg.temperature.toFixed(2);
-  updateProviderUI();
   populateVoices();
   if(cfg.voiceURI)voiceSelect.value=cfg.voiceURI;
   keyStatus.textContent=apiKey?'A key is currently saved.':'No key saved yet.';
@@ -1235,52 +986,34 @@ function openSettings(){
 }
 function closeSettings(){settingsModal.classList.remove('active')}
 function testKey(key){
-  var oldCfg=JSON.parse(JSON.stringify(cfg));
-  var oldKey=apiKey;
-  apiKey=key;
-  cfg.model=modelSelect.value;
-  cfg.provider=providerSelect.value;
-  if(cfg.provider==='openai-compat')cfg.customUrl=customUrl.value.trim();
-  cfg.temperature=parseFloat(tempSlider.value);
-
-  var req=buildRequest('Reply with the single word: ready');
-  return fetch(req.url,{method:'POST',headers:req.headers,body:JSON.stringify(req.body)})
-    .then(function(res){
-      if(!res.ok){
-        return res.text().then(function(txt){
-          var detail='';
-          try{var j=JSON.parse(txt);detail=(j.error&&j.error.message)||''}
-          catch(e){}
-          cfg=oldCfg;apiKey=oldKey;
-          throw new Error((res.status+' '+(detail||res.statusText)).slice(0,160));
-        });
-      }
-      return res.json().then(function(data){
-        var text=extractText(req.type,data);
-        if(!text){cfg=oldCfg;apiKey=oldKey;throw new Error('Empty response')}
-        return true;
+  var url='https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(modelSelect.value)+':generateContent';
+  return fetch(url,{
+    method:'POST',
+    headers:{'Content-Type':'application/json','X-Goog-Api-Key':key},
+    body:JSON.stringify({contents:[{parts:[{text:'Reply with the single word: ready'}]}],generationConfig:{maxOutputTokens:10}})
+  }).then(function(res){
+    if(!res.ok){
+      return res.text().then(function(txt){
+        var detail='';
+        try{var j=JSON.parse(txt);detail=(j.error&&j.error.message)||''}
+        catch(e){}
+        throw new Error((res.status+' '+(detail||res.statusText)).slice(0,180));
       });
-    });
+    }
+    return res.json();
+  }).then(function(data){
+    if(!data||!data.candidates||!data.candidates[0]||!data.candidates[0].content)throw new Error('Unexpected response');
+    return true;
+  });
 }
 
 // ---------- EVENTS ----------
 sendBtn.addEventListener('click',function(e){e.preventDefault();sendMessage(input.value)});
-input.addEventListener('keydown',function(e){
-  if(e.key==='Enter'||e.keyCode===13){e.preventDefault();sendMessage(input.value)}
-});
-micBtn.addEventListener('click',function(e){
-  e.preventDefault();
-  startMicAnalyzer().then(function(){listenOnce()});
-});
+input.addEventListener('keydown',function(e){if(e.key==='Enter'||e.keyCode===13){e.preventDefault();sendMessage(input.value)}});
+micBtn.addEventListener('click',function(e){e.preventDefault();startMicAnalyzer().then(function(){listenOnce()})});
 continuousToggle.addEventListener('click',function(){
   if(continuousMode)stopWake();
-  else{
-    startMicAnalyzer().then(function(){
-      continuousMode=true;
-      continuousToggle.classList.add('active');
-      startWake();
-    });
-  }
+  else{startMicAnalyzer().then(function(){continuousMode=true;continuousToggle.classList.add('active');startWake()})}
 });
 voiceToggle.addEventListener('click',function(){
   voiceOutput=!voiceOutput;
@@ -1291,42 +1024,18 @@ clearBtn.addEventListener('click',clearConversation);
 wipeBtn.addEventListener('click',wipeMemory);
 settingsBtn.addEventListener('click',openSettings);
 keyCancel.addEventListener('click',closeSettings);
-providerSelect.addEventListener('change',function(){
-  cfg.provider=providerSelect.value;
-  var p=PROVIDERS[cfg.provider];
-  cfg.model=p.defaultModel;
-  saveCfg();
-  updateProviderUI();
-});
-customUrl.addEventListener('change',function(){cfg.customUrl=customUrl.value.trim();saveCfg()});
 modelSelect.addEventListener('change',function(){cfg.model=modelSelect.value;saveCfg()});
-tempSlider.addEventListener('input',function(){
-  cfg.temperature=parseFloat(tempSlider.value);
-  tempVal.textContent=cfg.temperature.toFixed(2);
-  saveCfg();
-});
+tempSlider.addEventListener('input',function(){cfg.temperature=parseFloat(tempSlider.value);tempVal.textContent=cfg.temperature.toFixed(2);saveCfg()});
 voiceSelect.addEventListener('change',function(){cfg.voiceURI=voiceSelect.value||null;saveCfg()});
-keyClear.addEventListener('click',function(){
-  localStorage.removeItem(KEYS.api);
-  apiKey='';
-  keyStatus.textContent='Key removed.';
-  keyStatus.className='key-status missing';
-});
+keyClear.addEventListener('click',function(){localStorage.removeItem(KEYS.api);apiKey='';keyStatus.textContent='Key removed.';keyStatus.className='key-status missing'});
 keySave.addEventListener('click',function(){
   var candidate=keyInput.value.trim();
-  cfg.provider=providerSelect.value;
   cfg.model=modelSelect.value;
   cfg.temperature=parseFloat(tempSlider.value);
   cfg.voiceURI=voiceSelect.value||null;
-  if(cfg.provider==='openai-compat')cfg.customUrl=customUrl.value.trim();
   saveCfg();
-
   if(!candidate){
-    if(!apiKey){
-      keyStatus.textContent='Enter a key first.';
-      keyStatus.className='key-status err';
-      return;
-    }
+    if(!apiKey){keyStatus.textContent='Enter a key first.';keyStatus.className='key-status err';return}
     keyStatus.textContent='Settings saved. Key unchanged.';
     keyStatus.className='key-status ok';
     setTimeout(closeSettings,700);
@@ -1339,10 +1048,7 @@ keySave.addEventListener('click',function(){
     localStorage.setItem(KEYS.api,candidate);
     keyStatus.textContent='✓ Key works. Saved.';
     keyStatus.className='key-status ok';
-    setTimeout(function(){
-      closeSettings();
-      addMessage('system','Settings saved. '+PROVIDERS[cfg.provider].defaultModel+' ready.',false);
-    },800);
+    setTimeout(function(){closeSettings();addMessage('system','Settings saved. JARVIS is ready.',false)},800);
   }).catch(function(err){
     keyStatus.textContent='✗ '+err.message;
     keyStatus.className='key-status err';
@@ -1351,24 +1057,13 @@ keySave.addEventListener('click',function(){
 settingsModal.addEventListener('click',function(e){if(e.target===settingsModal)closeSettings()});
 exportBtn.addEventListener('click',exportMemory);
 importBtn.addEventListener('click',function(){importFile.click()});
-importFile.addEventListener('change',function(e){
-  if(e.target.files[0])importMemory(e.target.files[0]);
-  e.target.value='';
-});
+importFile.addEventListener('change',function(e){if(e.target.files[0])importMemory(e.target.files[0]);e.target.value=''});
 
 // ---------- BOOT ----------
-if(!SpeechRecognition){
-  micBtn.disabled=true;
-  micBtn.title='Speech recognition not supported';
-}
-if(!window.speechSynthesis){
-  voiceToggle.style.opacity='0.4';
-  voiceToggle.style.pointerEvents='none';
-}
+if(!SpeechRecognition){micBtn.disabled=true;micBtn.title='Speech recognition not supported'}
+if(!window.speechSynthesis){voiceToggle.style.opacity='0.4';voiceToggle.style.pointerEvents='none'}
 replayChatLog();
-if(!apiKey){
-  addMessage('system','No API key configured. Click Settings below to add one. Gemini free tier is recommended. Type /help for commands.',false);
-}
+if(!apiKey)addMessage('system','No API key configured. Click Settings below to add your free Gemini key. Type /help for commands.',false);
 setTimeout(function(){input.focus()},200);
 
 })();
